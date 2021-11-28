@@ -17,6 +17,7 @@
 	},
 	"[typescript]": {
 		"editor.formatOnSave": false,
+		"editor.tabSize": 4,
 		"editor.codeActionsOnSave": [
 			"source.formatDocument",
 			"source.fixAll.eslint"
@@ -24,6 +25,7 @@
 	},
 	"[typescriptreact]": {
 		"editor.formatOnSave": false,
+		"editor.tabSize": 4,
 		"editor.codeActionsOnSave": [
 			"source.formatDocument",
 			"source.fixAll.eslint"
