@@ -7,5 +7,7 @@ export default {
 	password: 'Password',
 	sign_up: 'Sign up',
 	sign_in: 'Sign in',
-	logout: 'Log out'
+	logout: 'Log out',
+	play: 'Play',
+	game: 'Game'
 };

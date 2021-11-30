@@ -7,5 +7,7 @@ export default {
 	password: 'Heslo',
 	sign_up: 'Zaregistrovať sa',
 	sign_in: 'Prihlásiť sa',
-	logout: 'Odhlásiť sa'
+	logout: 'Odhlásiť sa',
+	play: 'Hrať',
+	game: 'Hra'
 };
