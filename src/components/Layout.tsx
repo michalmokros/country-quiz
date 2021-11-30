@@ -14,7 +14,16 @@ const Layout: FC = ({ children }) => {
 			<AppBar position="fixed">
 				<Container maxWidth="md">
 					<Toolbar disableGutters sx={{ gap: 5 }}>
-						<Button component={Link} to="/">
+						<Button>Play!</Button>
+						<Button>Scoreboard</Button>
+						<Box sx={{ flexGrow: 1 }} />
+						<Button
+							component={Link}
+							to="/"
+							variant="outlined"
+							size="large"
+							sx={{ my: 'auto' }}
+						>
 							{t('country_quiz')}
 						</Button>
 						<Box sx={{ flexGrow: 1 }} />
