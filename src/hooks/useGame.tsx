@@ -18,7 +18,7 @@ const useGame = () => {
 	const [question, setQuestion] = useState('question');
 	return {
 		score,
-		text: ' ',
+		text: 'Here we will return question text based on some logic which is commented atm',
 		question
 	};
 };
