@@ -7,19 +7,37 @@ import {
 	TextField,
 	Typography
 } from '@mui/material';
-import { styled } from '@mui/material/styles';
+import { FC } from 'react';
 
-const Item = styled(Paper)(({ theme }) => ({
-	...theme.typography.body2,
-	padding: theme.spacing(1),
-	textAlign: 'center',
-	color: theme.palette.text.secondary
-}));
+import useGame from '../hooks/useGame';
 
-const GameLayout = () => {
+const GameLayout: FC = () => {
 	const a = '';
+	const { score, text, question } = useGame();
+
 	return (
 		<>
+			<Container
+				maxWidth="md"
+				component="main"
+				color="primary"
+				sx={{
+					display: 'flex',
+					flexDirection: 'column',
+					justifyContent: 'center',
+					alignItems: 'center',
+					height: '10vh',
+					pt: 1,
+					gap: 2,
+					border: 'solid',
+					borderRadius: '50%'
+				}}
+			>
+				<Typography variant="h2" sx={{ p: 2 }}>
+					Your score is {score.score}/{score.maxScore}
+				</Typography>
+			</Container>
+
 			<Container
 				maxWidth="md"
 				component="main"
@@ -31,10 +49,12 @@ const GameLayout = () => {
 					height: '50vh',
 					pt: 10,
 					pb: 2,
-					gap: 2
+					gap: 2,
+					border: 'solid'
 				}}
 			>
-				<Box sx={{ border: 'solid', width: '100%', height: '100%' }} />
+				<Typography variant="h2"> {text} </Typography>
+				{question === 'flag' ? <Typography> Tu je obrazok</Typography> : null}
 			</Container>
 			<Container
 				maxWidth="md"

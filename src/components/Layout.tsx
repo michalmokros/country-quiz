@@ -19,11 +19,11 @@ const Layout: FC = ({ children }) => {
 						</Button>
 						<Box sx={{ flexGrow: 1 }} />
 						{!user ? (
-							<Button color="secondary" component={Link} to="/login">
+							<Button color="primary" component={Link} to="/login">
 								{t('login')}
 							</Button>
 						) : (
-							<Button color="secondary" onClick={signOut}>
+							<Button color="primary" onClick={signOut}>
 								{t('logout')}
 							</Button>
 						)}
