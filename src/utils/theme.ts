@@ -13,7 +13,8 @@ const theme = createTheme({
 			light: '#b26500',
 			dark: '#ffa733',
 			contrastText: '#fff'
-		}
+		},
+		mode: 'dark'
 	}
 });
 
