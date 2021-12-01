@@ -1,3 +1,5 @@
+import { FC } from 'react';
+import { QuestionAnswer } from '@mui/icons-material';
 import {
 	Box,
 	Button,
@@ -7,16 +9,27 @@ import {
 	TextField,
 	Typography
 } from '@mui/material';
-import { FC } from 'react';
+import ReactCountryFlag from 'react-country-flag';
 
 import useGame from '../hooks/useGame';
 
 const GameLayout: FC = () => {
 	const a = '';
-	const { score, text, question } = useGame();
+	const { score, text, question, answers, onButtonClick } = useGame();
 
 	return (
-		<>
+		<Container
+			maxWidth="md"
+			component="main"
+			color="primary"
+			sx={{
+				display: 'flex',
+				flexDirection: 'column',
+				justifyContent: 'center',
+				gap: 2,
+				pt: 5
+			}}
+		>
 			<Container
 				maxWidth="md"
 				component="main"
@@ -24,11 +37,7 @@ const GameLayout: FC = () => {
 				sx={{
 					display: 'flex',
 					flexDirection: 'column',
-					justifyContent: 'center',
 					alignItems: 'center',
-					height: '10vh',
-					pb: 1,
-					gap: 4,
 					border: 'solid',
 					borderRadius: '30%'
 				}}
@@ -37,24 +46,47 @@ const GameLayout: FC = () => {
 					Your score is {score.score}/{score.maxScore}
 				</Typography>
 			</Container>
-
 			<Container
 				maxWidth="md"
 				component="main"
 				sx={{
 					display: 'flex',
-					flexDirection: 'column',
-					justifyContent: 'center',
-					alignItems: 'flex-start',
-					height: '50vh',
 					pt: 2,
 					pb: 2,
 					gap: 2,
 					border: 'solid'
 				}}
 			>
-				<Typography variant="h2"> {text} </Typography>
-				{question === 'flag' ? <Typography> Tu je obrazok</Typography> : null}
+				{/* <Container
+					maxWidth="md"
+					component="main"
+					sx={{
+						display: 'flex',
+						justifyContent: 'center',
+						alignItems: 'center'
+					}}
+				>
+					<Typography variant="h3"> {text} </Typography>
+				</Container> */}
+				<Container
+					maxWidth="md"
+					component="main"
+					sx={{
+						display: 'flex'
+					}}
+				>
+					{question === 'flag' ? (
+						<ReactCountryFlag
+							countryCode="US"
+							svg
+							style={{
+								display: 'flex-grow',
+								width: '100%',
+								height: '100%'
+							}}
+						/>
+					) : null}
+				</Container>
 			</Container>
 			<Container
 				maxWidth="md"
@@ -68,28 +100,44 @@ const GameLayout: FC = () => {
 			>
 				<Grid container spacing={2} display="flex" alignItems="stretch">
 					<Grid item xs={6}>
-						<Button fullWidth sx={{ border: 'solid', height: '100%' }}>
-							xs=6
+						<Button
+							id={answers[0].short_name}
+							fullWidth
+							sx={{ border: 'solid', height: '100%' }}
+						>
+							{answers[0].long_name}
 						</Button>
 					</Grid>
 					<Grid item xs={6}>
-						<Button fullWidth sx={{ border: 'solid', height: '100%' }}>
-							xs=6
+						<Button
+							id={answers[1].short_name}
+							fullWidth
+							sx={{ border: 'solid', height: '100%' }}
+						>
+							{answers[1].long_name}
 						</Button>{' '}
 					</Grid>
 					<Grid item xs={6}>
-						<Button fullWidth sx={{ border: 'solid', height: '100%' }}>
-							xs=6
+						<Button
+							id={answers[2].short_name}
+							fullWidth
+							sx={{ border: 'solid', height: '100%' }}
+						>
+							{answers[2].long_name}
 						</Button>{' '}
 					</Grid>
 					<Grid item xs={6}>
-						<Button fullWidth sx={{ border: 'solid', height: '100%' }}>
-							xs=6
+						<Button
+							id={answers[3].short_name}
+							fullWidth
+							sx={{ border: 'solid', height: '100%' }}
+						>
+							{answers[3].long_name}
 						</Button>{' '}
 					</Grid>
 				</Grid>
 			</Container>
-		</>
+		</Container>
 	);
 };
 
