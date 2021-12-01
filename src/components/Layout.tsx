@@ -28,11 +28,11 @@ const Layout: FC = ({ children }) => {
 						</Button>
 						<Box sx={{ flexGrow: 1 }} />
 						{!user ? (
-							<Button color="secondary" component={Link} to="/login">
+							<Button color="primary" component={Link} to="/login">
 								{t('login')}
 							</Button>
 						) : (
-							<Button color="secondary" onClick={signOut}>
+							<Button color="primary" onClick={signOut}>
 								{t('logout')}
 							</Button>
 						)}
@@ -40,13 +40,13 @@ const Layout: FC = ({ children }) => {
 				</Container>
 			</AppBar>
 			<Container
-				maxWidth="sm"
+				maxWidth="md"
 				component="main"
 				sx={{
 					display: 'flex',
 					flexDirection: 'column',
 					justifyContent: 'center',
-					alignItems: 'center',
+					alignItems: 'flex-start',
 					height: '100vh',
 					pt: 8,
 					gap: 2

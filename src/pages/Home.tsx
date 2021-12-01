@@ -36,7 +36,6 @@ const Home = ({ username }: Props) => {
 			<Typography variant="h5">{t('rules_third_title')}</Typography>
 			<Typography variant="body1">{t('rules_third')}</Typography>
 			<Typography variant="body1">{t('rules_fourth')}</Typography>
-
 			<Button
 				component={Link}
 				to="/play"
