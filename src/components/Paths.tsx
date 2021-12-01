@@ -5,6 +5,7 @@ import Home from '../pages/Home';
 import Login from '../pages/Login';
 import Play from '../pages/Play';
 import NotFound from '../pages/NotFound';
+import Scoreboard from '../pages/Scoreboard';
 
 const Paths = () => {
 	const user = useLoggedInUser();
@@ -13,6 +14,7 @@ const Paths = () => {
 	return (
 		<Routes>
 			<Route path="/" element={<Home username={username} />} />
+			<Route path="/scoreboard" element={<Scoreboard />} />
 			<Route path="/login" element={<Login />} />
 			<Route path="/play" element={<Play />} />
 			<Route path="*" element={<NotFound />} />

@@ -7,7 +7,14 @@ import {
 	onAuthStateChanged,
 	User
 } from 'firebase/auth';
-import { getFirestore } from 'firebase/firestore';
+import {
+	collection,
+	CollectionReference,
+	getFirestore,
+	Timestamp
+} from 'firebase/firestore';
+
+import { Score } from '../hooks/useGame';
 
 const firebaseConfig = {
 	apiKey: 'AIzaSyCg_GbIvh08jThwSbxrHV336IQeJmbzlZ0',
@@ -41,3 +48,15 @@ export const onAuthChanged = (callback: (u: User | null) => void) =>
 
 // Firestore
 const db = getFirestore();
+
+// Matches collection
+export type GameSession = {
+	by: string;
+	date: Timestamp;
+	score: Score;
+};
+
+export const gameSessionsCollection = collection(
+	db,
+	'gameSessions'
+) as CollectionReference<GameSession>;

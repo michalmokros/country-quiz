@@ -15,7 +15,9 @@ const Layout: FC = ({ children }) => {
 				<Container maxWidth="md">
 					<Toolbar disableGutters sx={{ gap: 5 }}>
 						<Button>Play!</Button>
-						<Button>Scoreboard</Button>
+						<Button color="primary" component={Link} to="/scoreboard">
+							{t('scoreboard')}
+						</Button>
 						<Box sx={{ flexGrow: 1 }} />
 						<Button
 							component={Link}

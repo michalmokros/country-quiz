@@ -11,6 +11,7 @@ export default {
 	not_found: 'Stránka Nenájdená',
 	welcome: 'Vitaj v hre krajín',
 	start_game: 'Začať hru!',
+	scoreboard: 'Tabuľka víťazov',
 
 	pretext: 'Kvíz Krajín je hra kde môžeš odskúšať svoje geografické znalosti.',
 	rules_title: 'Pravidlá hry',

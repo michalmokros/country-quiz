@@ -11,6 +11,7 @@ export default {
 	not_found: 'Page Not Found',
 	welcome: 'Welcome to the game of the countries',
 	start_game: 'Start the game!',
+	scoreboard: 'Scoreboard',
 
 	pretext:
 		'Country Quiz is a game where you can test your geography knowledge.',
