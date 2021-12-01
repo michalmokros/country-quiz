@@ -4,7 +4,7 @@ import { GameLayout } from '../components';
 
 const Play = () => {
 	const t = useTranslation();
-	usePageTitle(t('game'));
+	usePageTitle(t('country_quiz'));
 	return <GameLayout />;
 };
 
