@@ -27,13 +27,13 @@ const GameLayout: FC = () => {
 					justifyContent: 'center',
 					alignItems: 'center',
 					height: '10vh',
-					pt: 1,
-					gap: 2,
+					pb: 1,
+					gap: 4,
 					border: 'solid',
-					borderRadius: '50%'
+					borderRadius: '30%'
 				}}
 			>
-				<Typography variant="h2" sx={{ p: 2 }}>
+				<Typography variant="h3" sx={{ p: 2 }}>
 					Your score is {score.score}/{score.maxScore}
 				</Typography>
 			</Container>
@@ -47,7 +47,7 @@ const GameLayout: FC = () => {
 					justifyContent: 'center',
 					alignItems: 'flex-start',
 					height: '50vh',
-					pt: 10,
+					pt: 2,
 					pb: 2,
 					gap: 2,
 					border: 'solid'
