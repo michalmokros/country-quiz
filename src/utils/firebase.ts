@@ -14,7 +14,7 @@ import {
 	Timestamp
 } from 'firebase/firestore';
 
-import { Score } from '../hooks/useGame';
+import { Score } from '../utils/types';
 
 const firebaseConfig = {
 	apiKey: 'AIzaSyCg_GbIvh08jThwSbxrHV336IQeJmbzlZ0',

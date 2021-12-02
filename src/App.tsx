@@ -5,17 +5,20 @@ import { LanguageProvider } from './hooks/useTranslation';
 import theme from './utils/theme';
 import { Layout, Paths } from './components';
 import { UserProvider } from './hooks/useLoggedInUser';
+import { GameProvider } from './hooks/useGame';
 
 const App = () => (
 	<UserProvider>
 		<LanguageProvider>
 			<ThemeProvider theme={theme}>
-				<BrowserRouter>
-					<CssBaseline />
-					<Layout>
-						<Paths />
-					</Layout>
-				</BrowserRouter>
+				<GameProvider>
+					<BrowserRouter>
+						<CssBaseline />
+						<Layout>
+							<Paths />
+						</Layout>
+					</BrowserRouter>
+				</GameProvider>
 			</ThemeProvider>
 		</LanguageProvider>
 	</UserProvider>

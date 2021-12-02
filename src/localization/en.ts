@@ -12,6 +12,7 @@ export default {
 	welcome: 'Welcome to the game of the countries',
 	start_game: 'Start the game!',
 	scoreboard: 'Scoreboard',
+	play: 'Play!',
 
 	pretext:
 		'Country Quiz is a game where you can test your geography knowledge.',

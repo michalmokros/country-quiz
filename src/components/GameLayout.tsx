@@ -11,11 +11,13 @@ import {
 } from '@mui/material';
 import ReactCountryFlag from 'react-country-flag';
 
-import useGame from '../hooks/useGame';
+import { useGame, useQuestion, useRound } from '../hooks/useGame';
 
 const GameLayout: FC = () => {
 	const a = '';
-	const { score, text, question, answers, onButtonClick } = useGame();
+	const [game] = useGame();
+	const [round] = useRound();
+	const [question] = useQuestion();
 
 	return (
 		<Container
@@ -43,7 +45,7 @@ const GameLayout: FC = () => {
 				}}
 			>
 				<Typography variant="h3" sx={{ p: 2 }}>
-					Your score is {score.score}/{score.maxScore}
+					Your score is {game.score}/{30}
 				</Typography>
 			</Container>
 			<Container
@@ -75,7 +77,7 @@ const GameLayout: FC = () => {
 						display: 'flex'
 					}}
 				>
-					{question === 'flag' ? (
+					{round.currentQuestion === 1 ? (
 						<ReactCountryFlag
 							countryCode="US"
 							svg
@@ -99,42 +101,17 @@ const GameLayout: FC = () => {
 				}}
 			>
 				<Grid container spacing={2} display="flex" alignItems="stretch">
-					<Grid item xs={6}>
-						<Button
-							id={answers[0].short_name}
-							fullWidth
-							sx={{ border: 'solid', height: '100%' }}
-						>
-							{answers[0].long_name}
-						</Button>
-					</Grid>
-					<Grid item xs={6}>
-						<Button
-							id={answers[1].short_name}
-							fullWidth
-							sx={{ border: 'solid', height: '100%' }}
-						>
-							{answers[1].long_name}
-						</Button>{' '}
-					</Grid>
-					<Grid item xs={6}>
-						<Button
-							id={answers[2].short_name}
-							fullWidth
-							sx={{ border: 'solid', height: '100%' }}
-						>
-							{answers[2].long_name}
-						</Button>{' '}
-					</Grid>
-					<Grid item xs={6}>
-						<Button
-							id={answers[3].short_name}
-							fullWidth
-							sx={{ border: 'solid', height: '100%' }}
-						>
-							{answers[3].long_name}
-						</Button>{' '}
-					</Grid>
+					{question.map((answer, i) => (
+						<Grid item xs={6} key={i}>
+							<Button
+								id={answer.short_name}
+								fullWidth
+								sx={{ border: 'solid', height: '100%' }}
+							>
+								{answer.long_name}
+							</Button>
+						</Grid>
+					))}
 				</Grid>
 			</Container>
 		</Container>

@@ -14,7 +14,9 @@ const Layout: FC = ({ children }) => {
 			<AppBar position="fixed">
 				<Container maxWidth="md">
 					<Toolbar disableGutters sx={{ gap: 5 }}>
-						<Button>Play!</Button>
+						<Button color="primary" component={Link} to="/play">
+							{t('play')}
+						</Button>
 						<Button color="primary" component={Link} to="/scoreboard">
 							{t('scoreboard')}
 						</Button>

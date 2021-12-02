@@ -12,6 +12,7 @@ export default {
 	welcome: 'Vitaj v hre krajín',
 	start_game: 'Začať hru!',
 	scoreboard: 'Tabuľka víťazov',
+	play: 'Hrať!',
 
 	pretext: 'Kvíz Krajín je hra kde môžeš odskúšať svoje geografické znalosti.',
 	rules_title: 'Pravidlá hry',

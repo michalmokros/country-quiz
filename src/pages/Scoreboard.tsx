@@ -3,7 +3,7 @@ import Grid from '@mui/material/Grid';
 import { onSnapshot } from 'firebase/firestore';
 import { useEffect, useState } from 'react';
 
-import ScoreboardRow from '../components/ScoreboardRow';
+import { ScoreboardRow } from '../components';
 import usePageTitle from '../hooks/usePageTitle';
 import { useTranslation } from '../hooks/useTranslation';
 import { GameSession, gameSessionsCollection } from '../utils/firebase';
