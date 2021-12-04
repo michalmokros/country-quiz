@@ -1,8 +1,15 @@
-import { FC, useState } from 'react';
-import { Button, Container, Grid, Typography } from '@mui/material';
-import ReactCountryFlag from 'react-country-flag';
+import { FC, useState, useCallback } from 'react';
+import { Container } from '@mui/material';
 
 import { useGame, useQuestion, useRound } from '../hooks/useGame';
+import {
+	Game,
+	Questions,
+	Rounds,
+	Country,
+	NUMBER_OF_QUESTIONS,
+	NUMBER_OF_ROUNDS
+} from '../utils/types';
 
 import NextQuestionOrRoundButton from './NextQuestionOrRoundButton';
 import ShowScore from './ShowScore';
@@ -10,9 +17,45 @@ import ShowQuestion from './ShowQuestion';
 import ShowAnswers from './ShowAnswers';
 
 const GameLayout: FC = () => {
-	const [game] = useGame();
-	const [round] = useRound();
-	const [question, checkAnswer, setNextQuestionOrRound] = useQuestion();
+	const [game, setGame] = useGame();
+	const round = useRound();
+	const question = useQuestion();
+
+	const alterGame = (newGame: Partial<Game>) =>
+		setGame(prevGame => ({ ...prevGame, ...newGame }));
+
+	const checkAnswer = useCallback(
+		(answer: Country) => {
+			if (answer === round.country) {
+				alterGame({
+					score: game.score + round.currentQuestion
+				});
+				return true;
+			}
+			return false;
+		},
+		[game]
+	);
+
+	const setNextQuestionOrRound = useCallback(() => {
+		if (round.currentQuestion < NUMBER_OF_QUESTIONS) {
+			alterGame({
+				rounds: {
+					...game.rounds,
+					[game.currentRound]: {
+						...round,
+						currentQuestion: (round.currentQuestion + 1) as Questions
+					}
+				}
+			});
+		} else {
+			if (game.currentRound < NUMBER_OF_ROUNDS) {
+				alterGame({ currentRound: (game.currentRound + 1) as Rounds });
+			} else {
+				alterGame({ finished: true });
+			}
+		}
+	}, [game]);
 
 	const [buttonFlag, setButtonFlag] = useState('');
 

@@ -1,4 +1,5 @@
 import * as _ from 'lodash';
+import { addDoc, Timestamp } from 'firebase/firestore';
 import {
 	Dispatch,
 	FC,
@@ -6,7 +7,7 @@ import {
 	createContext,
 	SetStateAction,
 	useContext,
-	useCallback
+	useEffect
 } from 'react';
 
 import countryData from '../countryData.json';
@@ -17,8 +18,12 @@ import {
 	Rounds,
 	Questions,
 	RoundsArray,
-	QuestionsArray
+	QuestionsArray,
+	NUMBER_OF_QUESTIONS
 } from '../utils/types';
+import { gameSessionsCollection } from '../utils/firebase';
+
+import useLoggedInUser from './useLoggedInUser';
 
 type GameState = [Game, Dispatch<SetStateAction<Game>>];
 
@@ -32,95 +37,53 @@ const countries: Country[] = countryData.map(
 			population: country.population
 		} as const)
 );
-const NUMBER_OF_ROUNDS = Math.max(...RoundsArray);
-const NUMBER_OF_QUESTIONS = Math.max(...QuestionsArray);
 
 export const GameProvider: FC = ({ children }) => {
-	const gameState = useState<Game>({
+	const [game, setGame] = useState<Game>({
 		finished: false,
 		score: 0,
 		currentRound: 1,
 		rounds: generateRounds()
 	});
+	const user = useLoggedInUser();
+
+	useEffect(() => {
+		if (game.finished) {
+			addDoc(gameSessionsCollection, {
+				by: user?.email ?? 'Anonymous',
+				date: Timestamp.now(),
+				score: {
+					maxScore: 30,
+					score: game.score
+				}
+			});
+		} else {
+			setGame({
+				currentRound: 1,
+				finished: false,
+				rounds: generateRounds(),
+				score: 0
+			});
+		}
+	}, [game.finished]);
 
 	return (
-		<GameContext.Provider value={gameState}>{children}</GameContext.Provider>
+		<GameContext.Provider value={[game, setGame]}>
+			{children}
+		</GameContext.Provider>
 	);
 };
 
 export const useGame = () => useContext(GameContext);
 
-export const useRound = (): readonly [Round, () => void] => {
-	const [game] = useGame();
-
-	return [
-		game.rounds[game.currentRound],
-		useCallback(() => {
-			if (game.currentRound < NUMBER_OF_ROUNDS) {
-				alterGame({ currentRound: (game.currentRound + 1) as Rounds });
-			} else {
-				alterGame({ finished: true });
-			}
-		}, [game])
-	] as const;
+export const useRound = () => {
+	const [game] = useContext(GameContext);
+	return game.rounds[game.currentRound];
 };
 
-export const useQuestion = (): [
-	Country[],
-	(answer: Country) => boolean,
-	() => void
-] => {
-	const [game] = useGame();
-	const [round, increaseRound] = useRound();
-
-	return [
-		round.options[round.currentQuestion],
-		useCallback(
-			(answer: Country) => {
-				if (answer === round.country) {
-					alterGame({
-						score: game.score + round.currentQuestion
-					});
-					return true;
-				}
-				return false;
-			},
-			[game]
-		),
-		useCallback(() => {
-			if (round.currentQuestion < NUMBER_OF_QUESTIONS) {
-				alterGame({
-					rounds: {
-						...game.rounds,
-						[game.currentRound]: {
-							...round,
-							currentQuestion: (round.currentQuestion + 1) as Questions
-						}
-					}
-				});
-			} else {
-				increaseRound();
-			}
-		}, [game])
-	];
-};
-
-export const restartGame = () => {
-	const [game, setGame] = useGame();
-
-	return useCallback(() => {
-		setGame({
-			currentRound: 1,
-			finished: false,
-			rounds: generateRounds(),
-			score: 0
-		});
-	}, [game]);
-};
-
-const alterGame = (newGame: Partial<Game>) => {
-	const [, setGame] = useGame();
-	setGame(prevGame => ({ ...prevGame, ...newGame }));
+export const useQuestion = () => {
+	const round = useRound();
+	return round.options[round.currentQuestion];
 };
 
 const generateRounds = (): Record<Rounds, Round> => {
