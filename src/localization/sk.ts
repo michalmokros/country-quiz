@@ -1,4 +1,7 @@
 export default {
+	en: 'English',
+	sk: '',
+
 	country_quiz: 'Kvíz Krajín',
 	login: 'Prihlásenie',
 	required: 'Povinné',

@@ -1,4 +1,7 @@
 export default {
+	en: '',
+	sk: 'Slovenčina',
+
 	country_quiz: 'Country Quiz',
 	login: 'Login',
 	required: 'Required',

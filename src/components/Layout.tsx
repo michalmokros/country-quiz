@@ -6,6 +6,8 @@ import { useTranslation } from '../hooks/useTranslation';
 import useLoggedInUser from '../hooks/useLoggedInUser';
 import { signOut } from '../utils/firebase';
 
+import LanguageSwitch from './LanguageSwitch';
+
 const Layout: FC = ({ children }) => {
 	const t = useTranslation();
 	const user = useLoggedInUser();
@@ -40,6 +42,7 @@ const Layout: FC = ({ children }) => {
 								{t('logout')}
 							</Button>
 						)}
+						<LanguageSwitch />
 					</Toolbar>
 				</Container>
 			</AppBar>
