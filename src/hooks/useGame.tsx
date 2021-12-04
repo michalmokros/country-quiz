@@ -40,8 +40,7 @@ export const GameProvider: FC = ({ children }) => {
 		finished: false,
 		score: 0,
 		currentRound: 1,
-		rounds: generateRounds(),
-		username: undefined
+		rounds: generateRounds()
 	});
 
 	return (
@@ -62,38 +61,61 @@ export const useRound = (): readonly [Round, () => void] => {
 			} else {
 				alterGame({ finished: true });
 			}
-		}, [])
+		}, [game])
 	] as const;
 };
 
-export const useQuestion = (): [Country[], (answer: Country) => void] => {
+export const useQuestion = (): [
+	Country[],
+	(answer: Country) => boolean,
+	() => void
+] => {
 	const [game] = useGame();
 	const [round, increaseRound] = useRound();
 
 	return [
 		round.options[round.currentQuestion],
-		useCallback((answer: Country) => {
-			if (answer === round.country) {
-				if (round.currentQuestion < NUMBER_OF_QUESTIONS) {
+		useCallback(
+			(answer: Country) => {
+				if (answer === round.country) {
 					alterGame({
-						rounds: {
-							...game.rounds,
-							[game.currentRound]: {
-								...round,
-								currentQuestion: (round.currentQuestion + 1) as Questions
-							}
-						},
 						score: game.score + round.currentQuestion
 					});
-				} else {
-					alterGame({ score: game.score + round.currentQuestion });
-					increaseRound();
+					return true;
 				}
+				return false;
+			},
+			[game]
+		),
+		useCallback(() => {
+			if (round.currentQuestion < NUMBER_OF_QUESTIONS) {
+				alterGame({
+					rounds: {
+						...game.rounds,
+						[game.currentRound]: {
+							...round,
+							currentQuestion: (round.currentQuestion + 1) as Questions
+						}
+					}
+				});
 			} else {
 				increaseRound();
 			}
-		}, [])
+		}, [game])
 	];
+};
+
+export const restartGame = () => {
+	const [game, setGame] = useGame();
+
+	return useCallback(() => {
+		setGame({
+			currentRound: 1,
+			finished: false,
+			rounds: generateRounds(),
+			score: 0
+		});
+	}, [game]);
 };
 
 const alterGame = (newGame: Partial<Game>) => {
@@ -130,22 +152,3 @@ const pickRandomCountriesProps = (roundCountry: Country): Country[] =>
 		countries.filter(country => country !== roundCountry),
 		NUMBER_OF_QUESTIONS
 	);
-
-// 	const getQuestionText = (question: string) => {
-// 		if (question === 'flag') return 'Pick the correct country';
-// 		if (question === 'capital') return 'What is the capital city of ';
-// 		if (question === 'population') return 'What is this flag';
-// 	};
-
-// 	const onButtonClick = () => {
-// 		return 0;
-// 	};
-
-// 	return {
-// 		score,
-// 		text: getQuestionText(question),
-// 		question,
-// 		answers,
-// 		onButtonClick
-// 	};
-// };

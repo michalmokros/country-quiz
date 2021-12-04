@@ -26,5 +26,4 @@ export type Game = {
 	score: number;
 	currentRound: Rounds;
 	rounds: Record<Rounds, Round>;
-	username?: string;
 };
