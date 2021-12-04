@@ -29,5 +29,8 @@ export default {
 		'Poslednou úlohou v tomto kole je zodpovedanie otázky na počet obyvateľov danej krajiny. Tvojou odpoveďou je v tomto prípade číslo. Aby bola otázka správne zodpovedaná musíš trafiť počet obyvateľov danej krajiny s chybou najviac 10%. Pokiaľ odpovieš správne na túto otázku získavaš tri body a úspešne si dokončil toto kolo.',
 	rules_fourth:
 		'Pokiaľ nesprávne odpovieš na hociktorú otázku presúvaš sa automaticky do ďalšieho kola, a strácaš možnosť získať body za dané kolo. Po skončení desiateho kola sa tvoje získané body sčítajú do výsledného skóre a zobrazí sa tabuľka výsledkov v porovnaní s rebríčkom najlepších hráčov.',
-	rules_final: 'Veľa štastia v hre a zabav sa!'
+	rules_final: 'Veľa štastia v hre a zabav sa!',
+
+	capital_city_question: 'Aké je hlavné mesto krajiny ',
+	population_question: 'Koľko má obyvaťelov krajina '
 };

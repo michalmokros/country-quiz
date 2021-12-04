@@ -1,36 +1,20 @@
-import { Container } from '@mui/material';
+import { Typography } from '@mui/material';
 import { FC } from 'react';
 import { ReactCountryFlag } from 'react-country-flag';
+import { LocationCity, Groups } from '@mui/icons-material';
 
-import { Questions } from '../utils/types';
+import { useRound } from '../hooks/useGame';
+import { useTranslation } from '../hooks/useTranslation';
 
-type Props = {
-	currentQuestion: Questions;
-	countryCode: string;
-};
+const ShowQuestion: FC = () => {
+	const round = useRound();
+	const t = useTranslation();
 
-const ShowQuestion: FC<Props> = ({ currentQuestion, countryCode }: Props) => (
-	<Container
-		maxWidth="md"
-		component="main"
-		sx={{
-			display: 'flex',
-			pt: 2,
-			pb: 2,
-			gap: 2,
-			border: 'solid'
-		}}
-	>
-		<Container
-			maxWidth="md"
-			component="main"
-			sx={{
-				display: 'flex'
-			}}
-		>
-			{currentQuestion === 1 ? (
+	switch (round.currentQuestion) {
+		case 1:
+			return (
 				<ReactCountryFlag
-					countryCode={countryCode}
+					countryCode={round.country.short_name}
 					svg
 					style={{
 						display: 'flex-grow',
@@ -38,9 +22,28 @@ const ShowQuestion: FC<Props> = ({ currentQuestion, countryCode }: Props) => (
 						height: '100%'
 					}}
 				/>
-			) : null}
-		</Container>
-	</Container>
-);
+			);
+		case 2:
+			return (
+				<>
+					<LocationCity color="primary" sx={{ fontSize: 120 }} />
+					<Typography variant="h2" align="center">
+						{t('capital_city_question')}
+						{round.country.long_name}?
+					</Typography>
+				</>
+			);
+		case 3:
+			return (
+				<>
+					<Groups color="primary" sx={{ fontSize: 120 }} />
+					<Typography variant="h2" align="center">
+						{t('population_question')}
+						{round.country.long_name}?
+					</Typography>
+				</>
+			);
+	}
+};
 
 export default ShowQuestion;

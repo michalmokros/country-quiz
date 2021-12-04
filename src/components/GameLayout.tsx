@@ -78,10 +78,21 @@ const GameLayout: FC = () => {
 			}}
 		>
 			<ShowScore score={game.score} />
-			<ShowQuestion
-				currentQuestion={round.currentQuestion}
-				countryCode={round.country.short_name}
-			/>
+			<Container
+				maxWidth="md"
+				component="main"
+				sx={{
+					display: 'flex',
+					pt: 2,
+					pb: 2,
+					gap: 2,
+					border: 'solid',
+					flexDirection: 'column',
+					alignItems: 'center'
+				}}
+			>
+				<ShowQuestion />
+			</Container>
 			<ShowAnswers
 				question={question}
 				buttonFlag={buttonFlag}

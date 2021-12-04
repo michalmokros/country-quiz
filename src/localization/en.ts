@@ -30,5 +30,8 @@ export default {
 		'Your last question is to guess the population of the country fron this round. In this question you answer by writing a number. For this question to be answered correctly you have 10% margin of error of the actual population of the country. If you answer this question correctly you recieve three points and you successfully completed this round.',
 	rules_fourth:
 		'If you answer any question wrong you move onto the next round and lose any possible chance to gain more points from that round. After the end of 10th round, your points are summed up into the final score and the table of best players is displayed with the scoreboard.',
-	rules_final: 'Good luck in the game and have fun!'
+	rules_final: 'Good luck in the game and have fun!',
+
+	capital_city_question: 'What is the capital city of ',
+	population_question: 'What is the population of '
 };
