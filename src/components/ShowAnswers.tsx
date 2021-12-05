@@ -1,9 +1,9 @@
 import { Button, Container, Grid } from '@mui/material';
 import { FC } from 'react';
 
-import { useQuestion } from '../hooks/useGame';
+import { useQuestion, useRound } from '../hooks/useGame';
 import { useLanguage } from '../hooks/useTranslation';
-import { Questions } from '../utils/types';
+import { Country, Questions } from '../utils/types';
 
 type Props = {
 	questionType: Questions;
@@ -24,12 +24,13 @@ const ShowAnswers: FC<Props> = ({
 	guessColor,
 	setGuessColor
 }: Props) => {
+	const round = useRound();
 	const question = useQuestion();
 	const [l] = useLanguage();
 	const findCorrectCountryIndex = (): number => {
 		let correctCountryIndex = -1;
 		for (let j = 0; j < 4; j++) {
-			if (checkAnswer(question[j].key)) {
+			if (checkAnswer((question as Country[])[j].key)) {
 				correctCountryIndex = j;
 				break;
 			}
@@ -49,37 +50,39 @@ const ShowAnswers: FC<Props> = ({
 			}}
 		>
 			<Grid container spacing={2} display="flex" alignItems="stretch">
-				{question.map((answer, i) => (
-					<Grid item xs={6} key={i}>
-						<Button
-							id={answer.key}
-							fullWidth
-							sx={{
-								border: 'solid',
-								height: '100%',
-								bgcolor: guessColor[i]
-							}}
-							onClick={e => {
-								if (!buttonClicked) {
-									setButtonClicked(true);
-									const color = guessColor;
-									if (checkAnswer((e.target as HTMLInputElement).id)) {
-										giveScore();
-										color[i] = 'green';
-										setGuessColor(color);
-									} else {
-										color[i] = 'red';
-										const correctCountryIndex = findCorrectCountryIndex();
-										color[correctCountryIndex] = 'green';
-										setGuessColor(color);
-									}
-								}
-							}}
-						>
-							{questionType === 1 ? answer.name[l] : answer.capital[l]}
-						</Button>
-					</Grid>
-				))}
+				{round.currentQuestion === 3
+					? ''
+					: (question as Country[]).map((answer, i) => (
+							<Grid item xs={6} key={i}>
+								<Button
+									id={answer.key}
+									fullWidth
+									sx={{
+										border: 'solid',
+										height: '100%',
+										bgcolor: guessColor[i]
+									}}
+									onClick={e => {
+										if (!buttonClicked) {
+											setButtonClicked(true);
+											const color = guessColor;
+											if (checkAnswer((e.target as HTMLInputElement).id)) {
+												giveScore();
+												color[i] = 'green';
+												setGuessColor(color);
+											} else {
+												color[i] = 'red';
+												const correctCountryIndex = findCorrectCountryIndex();
+												color[correctCountryIndex] = 'green';
+												setGuessColor(color);
+											}
+										}
+									}}
+								>
+									{questionType === 1 ? answer.name[l] : answer.capital[l]}
+								</Button>
+							</Grid>
+					  ))}
 			</Grid>
 		</Container>
 	);

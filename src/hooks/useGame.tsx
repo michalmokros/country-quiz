@@ -20,7 +20,8 @@ import {
 	QuestionsArray,
 	NUMBER_OF_QUESTIONS,
 	MAX_SCORE,
-	QuestionOptions
+	QuestionOptions,
+	Boundaries
 } from '../utils/types';
 import { gameSessionsCollection } from '../utils/firebase';
 
@@ -76,7 +77,12 @@ export const useRound = () => {
 
 export const useQuestion = () => {
 	const round = useRound();
-	return round.options[round.currentQuestion];
+
+	if (round.currentQuestion === 3) {
+		return round.options[round.currentQuestion] as Boundaries;
+	}
+
+	return round.options[round.currentQuestion] as Country[];
 };
 
 export const getScore = (): number => {
