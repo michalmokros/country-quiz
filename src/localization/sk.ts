@@ -37,5 +37,12 @@ export default {
 	capital_city_question: 'Aké je hlavné mesto krajiny ',
 	population_question: 'Koľko má obyvateľov krajina ',
 
-	score_text: 'Tvoje skóre je '
+	score_text: 'Tvoje skóre je ',
+	round_text: 'Kolo',
+	take_guess: 'Tvoj tip:',
+	submit: 'Potvrdiť',
+	evaluate: 'Vyhodnotiť',
+	next_question: 'Ďalšia otazka',
+	next_round: 'Ďalšie kolo',
+	restart_game: 'Reštartovať hru!'
 };

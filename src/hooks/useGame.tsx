@@ -85,6 +85,11 @@ export const getScore = (): number => {
 	return game.score;
 };
 
+export const getCurrentRound = (): number => {
+	const [game] = useContext(GameContext);
+	return game.currentRound;
+};
+
 const generateRounds = (): Record<Rounds, Round> => {
 	const rounds: Partial<Record<Rounds, Round>> = {};
 

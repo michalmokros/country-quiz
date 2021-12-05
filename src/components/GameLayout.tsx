@@ -14,6 +14,7 @@ import NextQuestionOrRoundButton from './NextQuestionOrRoundButton';
 import ShowScore from './ShowScore';
 import ShowQuestion from './ShowQuestion';
 import ShowAnswers from './ShowAnswers';
+import EndScreen from './EndScreen';
 
 const GameLayout: FC = () => {
 	const [game, setGame] = useGame();
@@ -28,8 +29,24 @@ const GameLayout: FC = () => {
 		});
 	}, [game]);
 
-	const checkAnswer = (countryId: string): boolean => {
+	const checkAnswer = (answer: string | number): boolean => {
+		console.log('Selecting subtype checking');
+		console.log(typeof answer);
+		if (typeof answer === 'number') return checkPopulationAnsver(answer);
+		else return checkOptionAnswer(answer);
+	};
+
+	const checkOptionAnswer = (countryId: string): boolean => {
+		console.log('Checking Option ansver');
 		if (countryId === round.country.key) {
+			return true;
+		}
+		return false;
+	};
+
+	const checkPopulationAnsver = (answer: number): boolean => {
+		console.log('Checking population ansver');
+		if (answer <= round.options[3].upper && answer >= round.options[3].lower) {
 			return true;
 		}
 		return false;
@@ -63,7 +80,9 @@ const GameLayout: FC = () => {
 		'inherit'
 	]);
 
-	return (
+	return game.finished ? (
+		<EndScreen />
+	) : (
 		<Container
 			maxWidth="md"
 			component="main"
@@ -72,7 +91,7 @@ const GameLayout: FC = () => {
 				display: 'flex',
 				flexDirection: 'column',
 				justifyContent: 'center',
-				gap: 2,
+				gap: 1,
 				pt: 5
 			}}
 		>
@@ -82,12 +101,12 @@ const GameLayout: FC = () => {
 				component="main"
 				sx={{
 					display: 'flex',
-					pt: 2,
-					pb: 2,
-					gap: 2,
+					gap: 1,
 					border: 'solid',
 					flexDirection: 'column',
-					alignItems: 'center'
+					alignItems: 'center',
+					height: '80%',
+					width: '80%'
 				}}
 			>
 				<ShowQuestion />
