@@ -35,6 +35,11 @@ const GameLayout: FC = () => {
 	};
 
 	const checkOptionAnswer = (countryId: string): boolean => {
+		console.log('Correct country');
+		console.log(round.country.name);
+		console.log('countryId');
+		console.log(countryId);
+
 		if (countryId === round.country.key) {
 			return true;
 		}
@@ -42,6 +47,8 @@ const GameLayout: FC = () => {
 	};
 
 	const checkPopulationAnsver = (answer: number): boolean => {
+		console.log('Correct answer');
+		console.log(round.country.population);
 		console.log('answer');
 		console.log(answer);
 		console.log('round.options[3].upper');
