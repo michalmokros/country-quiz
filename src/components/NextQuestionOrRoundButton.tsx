@@ -5,14 +5,16 @@ import { Questions } from '../utils/types';
 
 type Props = {
 	setNextQuestionOrRound: () => void;
-	setButtonFlag: React.Dispatch<React.SetStateAction<string>>;
+	setButtonClicked: React.Dispatch<React.SetStateAction<boolean>>;
 	currentQuestion: Questions;
+	setGuessColor: React.Dispatch<React.SetStateAction<string[]>>;
 };
 
 const NextQuestionOrRoundButton: FC<Props> = ({
 	setNextQuestionOrRound,
-	setButtonFlag,
-	currentQuestion
+	setButtonClicked,
+	currentQuestion,
+	setGuessColor
 }: Props) => (
 	<Grid item xs={12}>
 		<Button
@@ -20,7 +22,8 @@ const NextQuestionOrRoundButton: FC<Props> = ({
 			sx={{ border: 'solid', height: '100%' }}
 			onClick={() => {
 				setNextQuestionOrRound();
-				setButtonFlag('');
+				setButtonClicked(false);
+				setGuessColor(['inherit', 'inherit', 'inherit', 'inherit']);
 			}}
 		>
 			{currentQuestion === 3 ? 'Next Round' : 'Next Question'}

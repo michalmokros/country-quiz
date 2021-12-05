@@ -24,18 +24,18 @@ const GameLayout: FC = () => {
 	const alterGame = (newGame: Partial<Game>) =>
 		setGame(prevGame => ({ ...prevGame, ...newGame }));
 
-	const checkAnswer = useCallback(
-		(answer: Country) => {
-			if (answer === round.country) {
-				alterGame({
-					score: game.score + round.currentQuestion
-				});
-				return true;
-			}
-			return false;
-		},
-		[game]
-	);
+	const giveScore = useCallback(() => {
+		alterGame({
+			score: game.score + round.currentQuestion
+		});
+	}, [game]);
+
+	const checkAnswer = (countryId: string): boolean => {
+		if (countryId === round.country.short_name) {
+			return true;
+		}
+		return false;
+	};
 
 	const setNextQuestionOrRound = useCallback(() => {
 		if (round.currentQuestion < NUMBER_OF_QUESTIONS) {
@@ -57,12 +57,13 @@ const GameLayout: FC = () => {
 		}
 	}, [game]);
 
-	const [buttonFlag, setButtonFlag] = useState('');
-
-	const handleAnswerClick = (event: React.MouseEvent<HTMLElement>) => {
-		if ((event.target as HTMLInputElement).id === round.country.short_name)
-			setButtonFlag(round.country.short_name);
-	};
+	const [buttonClicked, setButtonClicked] = useState(false);
+	const [guessColor, setGuessColor] = useState<string[]>([
+		'inherit',
+		'inherit',
+		'inherit',
+		'inherit'
+	]);
 
 	return (
 		<Container
@@ -94,15 +95,21 @@ const GameLayout: FC = () => {
 				<ShowQuestion />
 			</Container>
 			<ShowAnswers
+				questionType={round.currentQuestion}
 				question={question}
-				buttonFlag={buttonFlag}
-				handleAnswerClick={handleAnswerClick}
+				giveScore={giveScore}
+				checkAnswer={checkAnswer}
+				buttonClicked={buttonClicked}
+				setButtonClicked={setButtonClicked}
+				guessColor={guessColor}
+				setGuessColor={setGuessColor}
 			/>
-			{buttonFlag !== '' ? (
+			{buttonClicked ? (
 				<NextQuestionOrRoundButton
 					setNextQuestionOrRound={setNextQuestionOrRound}
-					setButtonFlag={setButtonFlag}
+					setButtonClicked={setButtonClicked}
 					currentQuestion={round.currentQuestion}
+					setGuessColor={setGuessColor}
 				/>
 			) : null}
 		</Container>
