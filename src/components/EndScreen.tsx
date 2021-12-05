@@ -6,11 +6,11 @@ import {
 	useRef,
 	useState
 } from 'react';
-import { Container, Grid, Typography } from '@mui/material';
+import { Button, Container, Grid, Typography } from '@mui/material';
 import ReactCanvasConfetti from 'react-canvas-confetti';
 import { CreateTypes } from 'canvas-confetti';
 
-import { getScore } from '../hooks/useGame';
+import { getScore, useGame } from '../hooks/useGame';
 import { useTranslation } from '../hooks/useTranslation';
 import { MAX_SCORE } from '../utils/types';
 import useLoggedInUser from '../hooks/useLoggedInUser';
@@ -19,11 +19,13 @@ const EndScreen: FC = () => {
 	const score = getScore();
 	const user = useLoggedInUser();
 	const t = useTranslation();
+	const [game, setGame] = useGame();
 
 	const refAnimationInstance = useRef(null);
 
 	const getInstance = useCallback(instance => {
 		refAnimationInstance.current = instance;
+		fire();
 	}, []);
 
 	const makeShot = useCallback((particleRatio, opts) => {
@@ -66,8 +68,6 @@ const EndScreen: FC = () => {
 		});
 	}, [makeShot]);
 
-	fire();
-    
 	return (
 		<Container
 			maxWidth="md"
@@ -84,8 +84,16 @@ const EndScreen: FC = () => {
 			<Typography variant="h1"> Congratulations {user}</Typography>
 			<Typography variant="h2">
 				{' '}
-				Your score is {score}/{MAX_SCORE}
+				{t('score_text')} {score}/{MAX_SCORE}
 			</Typography>
+			<Button
+				onClick={() => {
+					setGame(prevGame => ({ ...prevGame, ...{ finished: false } }));
+				}}
+			>
+				{' '}
+				{t('restart_game')}{' '}
+			</Button>
 
 			<ReactCanvasConfetti
 				refConfetti={getInstance}

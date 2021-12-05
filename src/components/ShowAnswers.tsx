@@ -2,12 +2,14 @@ import { Button, Container, Grid, TextField } from '@mui/material';
 import { FC, useState } from 'react';
 
 import { useQuestion, useRound } from '../hooks/useGame';
-import { useLanguage } from '../hooks/useTranslation';
+import { useLanguage, useTranslation } from '../hooks/useTranslation';
 import { Country } from '../utils/types';
+
+import PopulationAnswer from './PopulationAnswer';
 
 type Props = {
 	giveScore: () => void;
-	checkAnswer: (countryId: string) => boolean;
+	checkAnswer: (answer: string | number) => boolean;
 	buttonClicked: boolean;
 	setButtonClicked: React.Dispatch<React.SetStateAction<boolean>>;
 	guessColor: string[];
@@ -25,7 +27,8 @@ const ShowAnswers: FC<Props> = ({
 	const round = useRound();
 	const question = useQuestion();
 	const [l] = useLanguage();
-	const [popText, setPopText] = useState<string>('');
+	const [populationGuess, setPopulationGuess] = useState<number>(0);
+	const t = useTranslation();
 
 	return (
 		<Container
@@ -38,25 +41,16 @@ const ShowAnswers: FC<Props> = ({
 				gap: 1
 			}}
 		>
-			<Grid container spacing={2} display="flex" alignItems="stretch">
+			<Grid container spacing={2}>
 				{round.currentQuestion === 3 ? (
-					<>
-						<Grid item xs={10}>
-							<TextField
-								fullWidth
-								id="filled-basic"
-								label="Filled"
-								variant="filled"
-								onChange={e => setPopText(e.target.value)}
-							/>
-						</Grid>
-						<Grid item xs={2}>
-							<Button fullWidth sx={{ height: '100%' }} variant="outlined">
-								{' '}
-								text{' '}
-							</Button>
-						</Grid>
-					</>
+					<PopulationAnswer
+						giveScore={giveScore}
+						checkAnswer={checkAnswer}
+						buttonClicked={buttonClicked}
+						setButtonClicked={setButtonClicked}
+						guessColor={guessColor}
+						setGuessColor={setGuessColor}
+					/>
 				) : (
 					(question as Country[]).map((answer, i) => (
 						<Grid item xs={6} key={i}>
