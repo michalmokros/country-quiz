@@ -33,6 +33,7 @@ export type Round = {
 	options: QuestionOptions;
 	currentQuestion: Questions;
 	country: Country;
+	countryIndex: number;
 };
 
 export type Game = {

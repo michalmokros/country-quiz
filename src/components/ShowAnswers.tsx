@@ -3,10 +3,9 @@ import { FC } from 'react';
 
 import { useQuestion, useRound } from '../hooks/useGame';
 import { useLanguage } from '../hooks/useTranslation';
-import { Country, Questions } from '../utils/types';
+import { Country } from '../utils/types';
 
 type Props = {
-	questionType: Questions;
 	giveScore: () => void;
 	checkAnswer: (countryId: string) => boolean;
 	buttonClicked: boolean;
@@ -16,7 +15,6 @@ type Props = {
 };
 
 const ShowAnswers: FC<Props> = ({
-	questionType,
 	giveScore,
 	checkAnswer,
 	buttonClicked,
@@ -27,16 +25,6 @@ const ShowAnswers: FC<Props> = ({
 	const round = useRound();
 	const question = useQuestion();
 	const [l] = useLanguage();
-	const findCorrectCountryIndex = (): number => {
-		let correctCountryIndex = -1;
-		for (let j = 0; j < 4; j++) {
-			if (checkAnswer((question as Country[])[j].key)) {
-				correctCountryIndex = j;
-				break;
-			}
-		}
-		return correctCountryIndex;
-	};
 
 	return (
 		<Container
@@ -72,14 +60,15 @@ const ShowAnswers: FC<Props> = ({
 												setGuessColor(color);
 											} else {
 												color[i] = 'red';
-												const correctCountryIndex = findCorrectCountryIndex();
-												color[correctCountryIndex] = 'green';
+												color[round.countryIndex] = 'green';
 												setGuessColor(color);
 											}
 										}
 									}}
 								>
-									{questionType === 1 ? answer.name[l] : answer.capital[l]}
+									{round.currentQuestion === 1
+										? answer.name[l]
+										: answer.capital[l]}
 								</Button>
 							</Grid>
 					  ))}

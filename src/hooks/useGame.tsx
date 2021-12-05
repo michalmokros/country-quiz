@@ -77,12 +77,7 @@ export const useRound = () => {
 
 export const useQuestion = () => {
 	const round = useRound();
-
-	if (round.currentQuestion === 3) {
-		return round.options[round.currentQuestion] as Boundaries;
-	}
-
-	return round.options[round.currentQuestion] as Country[];
+	return round.options[round.currentQuestion];
 };
 
 export const getScore = (): number => {
@@ -96,6 +91,7 @@ const generateRounds = (): Record<Rounds, Round> => {
 	for (const round of RoundsArray) {
 		const roundCountry = _.sample(countries) as Country;
 		const options: Partial<QuestionOptions> = {};
+		let countryIndex = -1;
 
 		for (const question of QuestionsArray) {
 			if (question === 3) {
@@ -104,17 +100,21 @@ const generateRounds = (): Record<Rounds, Round> => {
 					upper: Math.round(1.05 * roundCountry.population)
 				};
 			} else {
-				options[question] = _.shuffle([
+				countryIndex = _.random(3, false);
+				options[question] = _.fill(
+					[...pickRandomCountriesProps(roundCountry)],
 					roundCountry,
-					...pickRandomCountriesProps(roundCountry)
-				]);
+					countryIndex,
+					countryIndex + 1
+				);
 			}
 		}
 
 		rounds[round] = {
 			options: options as QuestionOptions,
 			currentQuestion: 1,
-			country: roundCountry
+			country: roundCountry,
+			countryIndex
 		};
 	}
 
@@ -124,5 +124,5 @@ const generateRounds = (): Record<Rounds, Round> => {
 const pickRandomCountriesProps = (roundCountry: Country): Country[] =>
 	_.sampleSize(
 		countries.filter(country => country !== roundCountry),
-		NUMBER_OF_QUESTIONS
+		4
 	);

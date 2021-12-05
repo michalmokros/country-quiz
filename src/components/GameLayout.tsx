@@ -93,7 +93,6 @@ const GameLayout: FC = () => {
 				<ShowQuestion />
 			</Container>
 			<ShowAnswers
-				questionType={round.currentQuestion}
 				giveScore={giveScore}
 				checkAnswer={checkAnswer}
 				buttonClicked={buttonClicked}
