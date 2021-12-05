@@ -10,7 +10,7 @@ import {
 	useEffect
 } from 'react';
 
-import countryData from '../countryData.json';
+import data from '../data.json';
 import {
 	Game,
 	Country,
@@ -19,7 +19,8 @@ import {
 	Questions,
 	RoundsArray,
 	QuestionsArray,
-	NUMBER_OF_QUESTIONS
+	NUMBER_OF_QUESTIONS,
+	MAX_SCORE
 } from '../utils/types';
 import { gameSessionsCollection } from '../utils/firebase';
 
@@ -28,15 +29,7 @@ import useLoggedInUser from './useLoggedInUser';
 type GameState = [Game, Dispatch<SetStateAction<Game>>];
 
 const GameContext = createContext<GameState>(undefined as never);
-const countries: Country[] = countryData.map(
-	country =>
-		({
-			short_name: country.short_name,
-			long_name: country.long_name,
-			capital_city: country.capital_city,
-			population: country.population
-		} as const)
-);
+const countries: Country[] = data as Country[];
 
 export const GameProvider: FC = ({ children }) => {
 	const [game, setGame] = useState<Game>({
@@ -53,7 +46,7 @@ export const GameProvider: FC = ({ children }) => {
 				by: user?.email ?? 'Anonymous',
 				date: Timestamp.now(),
 				score: {
-					maxScore: 30,
+					maxScore: MAX_SCORE,
 					score: game.score
 				}
 			});
@@ -86,18 +79,23 @@ export const useQuestion = () => {
 	return round.options[round.currentQuestion];
 };
 
+export const getScore = (): number => {
+	const [game] = useContext(GameContext);
+	return game.score;
+};
+
 const generateRounds = (): Record<Rounds, Round> => {
 	const rounds: Partial<Record<Rounds, Round>> = {};
-	const roundCountry = _.sample(countries) as Country;
 
 	for (const round of RoundsArray) {
+		const roundCountry = _.sample(countries) as Country;
 		const options: Partial<Record<Questions, Country[]>> = {};
 
 		for (const question of QuestionsArray) {
-			options[question] = [
+			options[question] = _.shuffle([
 				roundCountry,
 				...pickRandomCountriesProps(roundCountry)
-			];
+			]);
 		}
 
 		rounds[round] = {

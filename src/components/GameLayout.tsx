@@ -1,12 +1,11 @@
 import { FC, useState, useCallback } from 'react';
 import { Container } from '@mui/material';
 
-import { useGame, useQuestion, useRound } from '../hooks/useGame';
+import { useGame, useRound } from '../hooks/useGame';
 import {
 	Game,
 	Questions,
 	Rounds,
-	Country,
 	NUMBER_OF_QUESTIONS,
 	NUMBER_OF_ROUNDS
 } from '../utils/types';
@@ -19,7 +18,6 @@ import ShowAnswers from './ShowAnswers';
 const GameLayout: FC = () => {
 	const [game, setGame] = useGame();
 	const round = useRound();
-	const question = useQuestion();
 
 	const alterGame = (newGame: Partial<Game>) =>
 		setGame(prevGame => ({ ...prevGame, ...newGame }));
@@ -31,7 +29,7 @@ const GameLayout: FC = () => {
 	}, [game]);
 
 	const checkAnswer = (countryId: string): boolean => {
-		if (countryId === round.country.short_name) {
+		if (countryId === round.country.key) {
 			return true;
 		}
 		return false;
@@ -78,7 +76,7 @@ const GameLayout: FC = () => {
 				pt: 5
 			}}
 		>
-			<ShowScore score={game.score} />
+			<ShowScore />
 			<Container
 				maxWidth="md"
 				component="main"
@@ -96,7 +94,6 @@ const GameLayout: FC = () => {
 			</Container>
 			<ShowAnswers
 				questionType={round.currentQuestion}
-				question={question}
 				giveScore={giveScore}
 				checkAnswer={checkAnswer}
 				buttonClicked={buttonClicked}

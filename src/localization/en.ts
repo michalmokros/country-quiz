@@ -36,5 +36,7 @@ export default {
 	rules_final: 'Good luck in the game and have fun!',
 
 	capital_city_question: 'What is the capital city of ',
-	population_question: 'What is the population of '
+	population_question: 'What is the population of ',
+
+	score_text: 'Your score is '
 };

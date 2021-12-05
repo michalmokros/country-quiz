@@ -4,17 +4,18 @@ import { ReactCountryFlag } from 'react-country-flag';
 import { LocationCity, Groups } from '@mui/icons-material';
 
 import { useRound } from '../hooks/useGame';
-import { useTranslation } from '../hooks/useTranslation';
+import { useLanguage, useTranslation } from '../hooks/useTranslation';
 
 const ShowQuestion: FC = () => {
 	const round = useRound();
 	const t = useTranslation();
+	const [l] = useLanguage();
 
 	switch (round.currentQuestion) {
 		case 1:
 			return (
 				<ReactCountryFlag
-					countryCode={round.country.short_name}
+					countryCode={round.country.key}
 					svg
 					style={{
 						display: 'flex-grow',
@@ -29,7 +30,7 @@ const ShowQuestion: FC = () => {
 					<LocationCity color="primary" sx={{ fontSize: 120 }} />
 					<Typography variant="h2" align="center">
 						{t('capital_city_question')}
-						{round.country.long_name}?
+						{round.country.name[l]}?
 					</Typography>
 				</>
 			);
@@ -39,7 +40,7 @@ const ShowQuestion: FC = () => {
 					<Groups color="primary" sx={{ fontSize: 120 }} />
 					<Typography variant="h2" align="center">
 						{t('population_question')}
-						{round.country.long_name}?
+						{round.country.name[l]}?
 					</Typography>
 				</>
 			);

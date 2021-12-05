@@ -9,7 +9,7 @@ import {
 
 import localization from '../localization';
 
-type Languages = keyof typeof localization;
+export type Languages = keyof typeof localization;
 type LocalizationKeys = keyof typeof localization[Languages];
 type LanguageState = [Languages, Dispatch<SetStateAction<Languages>>];
 

@@ -35,5 +35,7 @@ export default {
 	rules_final: 'Veľa štastia v hre a zabav sa!',
 
 	capital_city_question: 'Aké je hlavné mesto krajiny ',
-	population_question: 'Koľko má obyvaťelov krajina '
+	population_question: 'Koľko má obyvateľov krajina ',
+
+	score_text: 'Tvoje skóre je '
 };

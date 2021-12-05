@@ -1,12 +1,12 @@
-import { checkActionCode } from '@firebase/auth';
 import { Button, Container, Grid } from '@mui/material';
-import { FC, useState } from 'react';
+import { FC } from 'react';
 
-import { Country, Questions } from '../utils/types';
+import { useQuestion } from '../hooks/useGame';
+import { useLanguage } from '../hooks/useTranslation';
+import { Questions } from '../utils/types';
 
 type Props = {
 	questionType: Questions;
-	question: Country[];
 	giveScore: () => void;
 	checkAnswer: (countryId: string) => boolean;
 	buttonClicked: boolean;
@@ -17,7 +17,6 @@ type Props = {
 
 const ShowAnswers: FC<Props> = ({
 	questionType,
-	question,
 	giveScore,
 	checkAnswer,
 	buttonClicked,
@@ -25,10 +24,12 @@ const ShowAnswers: FC<Props> = ({
 	guessColor,
 	setGuessColor
 }: Props) => {
-	const findCorrectCountryIndex = (question: Country[]): number => {
+	const question = useQuestion();
+	const [l] = useLanguage();
+	const findCorrectCountryIndex = (): number => {
 		let correctCountryIndex = -1;
 		for (let j = 0; j < 4; j++) {
-			if (checkAnswer(question[j].short_name)) {
+			if (checkAnswer(question[j].key)) {
 				correctCountryIndex = j;
 				break;
 			}
@@ -51,7 +52,7 @@ const ShowAnswers: FC<Props> = ({
 				{question.map((answer, i) => (
 					<Grid item xs={6} key={i}>
 						<Button
-							id={answer.short_name}
+							id={answer.key}
 							fullWidth
 							sx={{
 								border: 'solid',
@@ -68,15 +69,14 @@ const ShowAnswers: FC<Props> = ({
 										setGuessColor(color);
 									} else {
 										color[i] = 'red';
-										const correctCountryIndex =
-											findCorrectCountryIndex(question);
+										const correctCountryIndex = findCorrectCountryIndex();
 										color[correctCountryIndex] = 'green';
 										setGuessColor(color);
 									}
 								}
 							}}
 						>
-							{questionType === 1 ? answer.long_name : answer.capital_city}
+							{questionType === 1 ? answer.name[l] : answer.capital[l]}
 						</Button>
 					</Grid>
 				))}
