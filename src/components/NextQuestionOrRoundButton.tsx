@@ -33,11 +33,11 @@ const NextQuestionOrRoundButton: FC<Props> = ({
 					setGuessColor(['inherit', 'inherit', 'inherit', 'inherit']);
 				}}
 			>
-				{game.finished
+				{currentQuestion !== 3
+					? t('next_question')
+					: game.currentRound === 10
 					? t('evaluate')
-					: currentQuestion === 3
-					? t('next_round')
-					: t('next_question')}
+					: t('next_round')}
 			</Button>
 		</Grid>
 	);
