@@ -8,8 +8,8 @@ import {
 } from 'react';
 
 import localization from '../localization';
+import { Languages } from '../utils/types';
 
-export type Languages = keyof typeof localization;
 type LocalizationKeys = keyof typeof localization[Languages];
 type LanguageState = [Languages, Dispatch<SetStateAction<Languages>>];
 

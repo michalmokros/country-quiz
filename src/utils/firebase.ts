@@ -14,8 +14,6 @@ import {
 	Timestamp
 } from 'firebase/firestore';
 
-import { Score } from '../utils/types';
-
 const firebaseConfig = {
 	apiKey: 'AIzaSyCg_GbIvh08jThwSbxrHV336IQeJmbzlZ0',
 	authDomain: 'countryquiz-18516.firebaseapp.com',
@@ -53,7 +51,10 @@ const db = getFirestore();
 export type GameSession = {
 	by: string;
 	date: Timestamp;
-	score: Score;
+	score: {
+		score: number;
+		maxScore: number;
+	};
 };
 
 export const gameSessionsCollection = collection(

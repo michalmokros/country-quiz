@@ -16,11 +16,11 @@ import {
 	Country,
 	Round,
 	Rounds,
-	Questions,
 	RoundsArray,
 	QuestionsArray,
 	NUMBER_OF_QUESTIONS,
-	MAX_SCORE
+	MAX_SCORE,
+	QuestionOptions
 } from '../utils/types';
 import { gameSessionsCollection } from '../utils/firebase';
 
@@ -89,17 +89,24 @@ const generateRounds = (): Record<Rounds, Round> => {
 
 	for (const round of RoundsArray) {
 		const roundCountry = _.sample(countries) as Country;
-		const options: Partial<Record<Questions, Country[]>> = {};
+		const options: Partial<QuestionOptions> = {};
 
 		for (const question of QuestionsArray) {
-			options[question] = _.shuffle([
-				roundCountry,
-				...pickRandomCountriesProps(roundCountry)
-			]);
+			if (question === 3) {
+				options[question] = {
+					lower: Math.round(0.95 * roundCountry.population),
+					upper: Math.round(1.05 * roundCountry.population)
+				};
+			} else {
+				options[question] = _.shuffle([
+					roundCountry,
+					...pickRandomCountriesProps(roundCountry)
+				]);
+			}
 		}
 
 		rounds[round] = {
-			options: options as Record<Questions, Country[]>,
+			options: options as QuestionOptions,
 			currentQuestion: 1,
 			country: roundCountry
 		};
