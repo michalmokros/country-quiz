@@ -6,6 +6,7 @@ export const QuestionsArray = [1, 2, 3] as const;
 export type Rounds = typeof RoundsArray[number];
 export type Questions = typeof QuestionsArray[number];
 
+export const POPULATION_RANGE = 0.1; // 10% both ways
 export const NUMBER_OF_ROUNDS = Math.max(...RoundsArray);
 export const NUMBER_OF_QUESTIONS = Math.max(...QuestionsArray);
 export const MAX_SCORE =
@@ -18,22 +19,26 @@ export type Country = {
 	capital: Record<Languages, string>;
 };
 
-export type Boundaries = {
+export type PopulationAnswer = {
 	lower: number;
 	upper: number;
 };
 
+export type CountryAnswer = {
+	index: number;
+	countries: Country[];
+};
+
 export type QuestionOptions = {
-	[1]: Country[];
-	[2]: Country[];
-	[3]: Boundaries;
+	[1]: CountryAnswer;
+	[2]: CountryAnswer;
+	[3]: PopulationAnswer;
 };
 
 export type Round = {
 	options: QuestionOptions;
 	currentQuestion: Questions;
 	country: Country;
-	countryIndex: number;
 };
 
 export type Game = {

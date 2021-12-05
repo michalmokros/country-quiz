@@ -1,25 +1,18 @@
-import {
-	FC,
-	useCallback,
-	useContext,
-	useEffect,
-	useRef,
-	useState
-} from 'react';
-import { Button, Container, Grid, Typography } from '@mui/material';
-import ReactCanvasConfetti from 'react-canvas-confetti';
+import { Button, Container, Typography } from '@mui/material';
 import { CreateTypes } from 'canvas-confetti';
+import { FC, useCallback, useRef } from 'react';
+import ReactCanvasConfetti from 'react-canvas-confetti';
 
 import { getScore, useGame } from '../hooks/useGame';
+import useLoggedInUser from '../hooks/useLoggedInUser';
 import { useTranslation } from '../hooks/useTranslation';
 import { MAX_SCORE } from '../utils/types';
-import useLoggedInUser from '../hooks/useLoggedInUser';
 
 const EndScreen: FC = () => {
 	const score = getScore();
 	const user = useLoggedInUser();
 	const t = useTranslation();
-	const [game, setGame] = useGame();
+	const [, setGame] = useGame();
 
 	const refAnimationInstance = useRef(null);
 

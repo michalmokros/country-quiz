@@ -1,26 +1,57 @@
 import { Button, Grid } from '@mui/material';
-import { FC } from 'react';
+import { FC, useCallback } from 'react';
 
-import { useGame } from '../hooks/useGame';
+import { useGame, useRound } from '../hooks/useGame';
 import { useTranslation } from '../hooks/useTranslation';
-import { gameSessionsCollection } from '../utils/firebase';
-import { Questions } from '../utils/types';
+import {
+	Game,
+	NUMBER_OF_QUESTIONS,
+	NUMBER_OF_ROUNDS,
+	Questions,
+	Rounds
+} from '../utils/types';
 
 type Props = {
-	setNextQuestionOrRound: () => void;
+	isRight: boolean;
+	alterGame: (newGame: Partial<Game>) => void;
 	setButtonClicked: React.Dispatch<React.SetStateAction<boolean>>;
 	currentQuestion: Questions;
 	setGuessColor: React.Dispatch<React.SetStateAction<string[]>>;
 };
 
 const NextQuestionOrRoundButton: FC<Props> = ({
-	setNextQuestionOrRound,
+	isRight,
+	alterGame,
 	setButtonClicked,
 	currentQuestion,
 	setGuessColor
 }: Props) => {
-	const [game, setGame] = useGame();
+	const [game] = useGame();
+	const round = useRound();
 	const t = useTranslation();
+
+	const setNextQuestionOrRound = useCallback(
+		(isRight: boolean) => {
+			if (isRight && round.currentQuestion < NUMBER_OF_QUESTIONS) {
+				alterGame({
+					rounds: {
+						...game.rounds,
+						[game.currentRound]: {
+							...round,
+							currentQuestion: (round.currentQuestion + 1) as Questions
+						}
+					}
+				});
+			} else {
+				if (game.currentRound < NUMBER_OF_ROUNDS) {
+					alterGame({ currentRound: (game.currentRound + 1) as Rounds });
+				} else {
+					alterGame({ finished: true });
+				}
+			}
+		},
+		[game]
+	);
 
 	return (
 		<Grid item xs={12}>
@@ -28,12 +59,12 @@ const NextQuestionOrRoundButton: FC<Props> = ({
 				fullWidth
 				sx={{ border: 'solid', height: '100%' }}
 				onClick={() => {
-					setNextQuestionOrRound();
+					setNextQuestionOrRound(isRight);
 					setButtonClicked(false);
 					setGuessColor(['inherit', 'inherit', 'inherit', 'inherit']);
 				}}
 			>
-				{currentQuestion !== 3
+				{isRight && round.currentQuestion < NUMBER_OF_QUESTIONS
 					? t('next_question')
 					: game.currentRound === 10
 					? t('evaluate')

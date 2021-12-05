@@ -1,15 +1,15 @@
-import { Button, Container, Grid, TextField } from '@mui/material';
-import { FC, useState } from 'react';
+import { Button, Container, Grid } from '@mui/material';
+import { FC, useCallback } from 'react';
 
-import { useQuestion, useRound } from '../hooks/useGame';
-import { useLanguage, useTranslation } from '../hooks/useTranslation';
-import { Country } from '../utils/types';
+import { useGame, useQuestion, useRound } from '../hooks/useGame';
+import { useLanguage } from '../hooks/useTranslation';
+import { CountryAnswer, Game } from '../utils/types';
 
 import PopulationAnswer from './PopulationAnswer';
 
 type Props = {
-	giveScore: () => void;
-	checkAnswer: (answer: string | number) => boolean;
+	setIsRight: (newIsRight: boolean) => void;
+	alterGame: (newGame: Partial<Game>) => void;
 	buttonClicked: boolean;
 	setButtonClicked: React.Dispatch<React.SetStateAction<boolean>>;
 	guessColor: string[];
@@ -17,18 +17,42 @@ type Props = {
 };
 
 const ShowAnswers: FC<Props> = ({
-	giveScore,
-	checkAnswer,
+	setIsRight,
+	alterGame,
 	buttonClicked,
 	setButtonClicked,
 	guessColor,
 	setGuessColor
 }: Props) => {
+	const [game] = useGame();
 	const round = useRound();
 	const question = useQuestion();
 	const [l] = useLanguage();
-	const [populationGuess, setPopulationGuess] = useState<number>(0);
-	const t = useTranslation();
+
+	const giveScore = useCallback(() => {
+		alterGame({
+			score: game.score + round.currentQuestion
+		});
+	}, [game]);
+
+	const checkAnswer = useCallback(
+		(answer: string | number): boolean => {
+			if (typeof answer === 'number') {
+				if (
+					answer <= round.options[3].upper &&
+					answer >= round.options[3].lower
+				) {
+					return true;
+				}
+				return false;
+			}
+			if (answer === round.country.key) {
+				return true;
+			}
+			return false;
+		},
+		[round]
+	);
 
 	return (
 		<Container
@@ -52,7 +76,7 @@ const ShowAnswers: FC<Props> = ({
 						setGuessColor={setGuessColor}
 					/>
 				) : (
-					(question as Country[]).map((answer, i) => (
+					(question as CountryAnswer).countries.map((answer, i) => (
 						<Grid item xs={6} key={i}>
 							<Button
 								id={answer.key}
@@ -66,15 +90,19 @@ const ShowAnswers: FC<Props> = ({
 									if (!buttonClicked) {
 										setButtonClicked(true);
 										const color = guessColor;
-										if (checkAnswer((e.target as HTMLInputElement).id)) {
+										const isRight = checkAnswer(
+											(e.target as HTMLInputElement).id
+										);
+										if (isRight) {
 											giveScore();
 											color[i] = 'green';
 											setGuessColor(color);
 										} else {
 											color[i] = 'red';
-											color[round.countryIndex] = 'green';
+											color[(question as CountryAnswer).index] = 'green';
 											setGuessColor(color);
 										}
+										setIsRight(isRight);
 									}
 								}}
 							>
