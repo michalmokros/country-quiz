@@ -1,6 +1,7 @@
 import { Button, Grid } from '@mui/material';
 import { FC } from 'react';
 
+import { useGame } from '../hooks/useGame';
 import { useTranslation } from '../hooks/useTranslation';
 import { gameSessionsCollection } from '../utils/firebase';
 import { Questions } from '../utils/types';
@@ -18,7 +19,9 @@ const NextQuestionOrRoundButton: FC<Props> = ({
 	currentQuestion,
 	setGuessColor
 }: Props) => {
+	const [game, setGame] = useGame();
 	const t = useTranslation();
+
 	return (
 		<Grid item xs={12}>
 			<Button
@@ -30,8 +33,11 @@ const NextQuestionOrRoundButton: FC<Props> = ({
 					setGuessColor(['inherit', 'inherit', 'inherit', 'inherit']);
 				}}
 			>
-				{currentQuestion === 3 ? t('next_round') : t('next_question')}
-				{/* {game.finished ? {t('evaluate')} : currentQuestion === 3 ? {t('next_round')} : {t('next_question')}} */}
+				{game.finished
+					? t('evaluate')
+					: currentQuestion === 3
+					? t('next_round')
+					: t('next_question')}
 			</Button>
 		</Grid>
 	);

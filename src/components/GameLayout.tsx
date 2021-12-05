@@ -30,14 +30,11 @@ const GameLayout: FC = () => {
 	}, [game]);
 
 	const checkAnswer = (answer: string | number): boolean => {
-		console.log('Selecting subtype checking');
-		console.log(typeof answer);
 		if (typeof answer === 'number') return checkPopulationAnsver(answer);
 		else return checkOptionAnswer(answer);
 	};
 
 	const checkOptionAnswer = (countryId: string): boolean => {
-		console.log('Checking Option ansver');
 		if (countryId === round.country.key) {
 			return true;
 		}
@@ -45,7 +42,13 @@ const GameLayout: FC = () => {
 	};
 
 	const checkPopulationAnsver = (answer: number): boolean => {
-		console.log('Checking population ansver');
+		console.log('answer');
+		console.log(answer);
+		console.log('round.options[3].upper');
+		console.log(round.options[3].upper);
+		console.log('round.options[3].lower');
+		console.log(round.options[3].lower);
+
 		if (answer <= round.options[3].upper && answer >= round.options[3].lower) {
 			return true;
 		}

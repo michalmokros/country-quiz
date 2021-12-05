@@ -5,6 +5,8 @@ import { useQuestion, useRound } from '../hooks/useGame';
 import { useLanguage, useTranslation } from '../hooks/useTranslation';
 import { Country } from '../utils/types';
 
+import PopulationAnswer from './PopulationAnswer';
+
 type Props = {
 	giveScore: () => void;
 	checkAnswer: (answer: string | number) => boolean;
@@ -41,41 +43,14 @@ const ShowAnswers: FC<Props> = ({
 		>
 			<Grid container spacing={2}>
 				{round.currentQuestion === 3 ? (
-					<>
-						<Grid item xs={10}>
-							<TextField
-								fullWidth
-								required
-								id="filled-basic"
-								label={t('take_guess')}
-								variant="filled"
-								type="number"
-								onChange={e =>
-									setPopulationGuess(Number.parseInt(e.target.value))
-								}
-							/>
-						</Grid>
-						<Grid item xs={2} alignItems="stretch" style={{ display: 'flex' }}>
-							<Button
-								fullWidth
-								sx={{ height: '100%', bgcolor: guessColor[0] }}
-								variant="outlined"
-								onClick={e => {
-									if (populationGuess > 0) {
-										if (checkAnswer(populationGuess)) {
-											giveScore();
-											guessColor[0] = 'green';
-										}
-										guessColor[0] = 'red';
-										setPopulationGuess(0);
-										setButtonClicked(true);
-									}
-								}}
-							>
-								{t('submit')}
-							</Button>
-						</Grid>
-					</>
+					<PopulationAnswer
+						giveScore={giveScore}
+						checkAnswer={checkAnswer}
+						buttonClicked={buttonClicked}
+						setButtonClicked={setButtonClicked}
+						guessColor={guessColor}
+						setGuessColor={setGuessColor}
+					/>
 				) : (
 					(question as Country[]).map((answer, i) => (
 						<Grid item xs={6} key={i}>
