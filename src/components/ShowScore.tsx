@@ -3,6 +3,7 @@ import { FC } from 'react';
 
 import { getScore } from '../hooks/useGame';
 import { useTranslation } from '../hooks/useTranslation';
+import { MAX_SCORE } from '../utils/types';
 
 const ShowScore: FC = () => {
 	const score = getScore();
@@ -23,7 +24,7 @@ const ShowScore: FC = () => {
 		>
 			<Typography variant="h3" sx={{ p: 2 }}>
 				{t('score_text')}
-				{score}/{60}
+				{score}/{MAX_SCORE}
 			</Typography>
 		</Container>
 	);

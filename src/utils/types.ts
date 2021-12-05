@@ -19,7 +19,7 @@ export type Questions = typeof QuestionsArray[number];
 export const NUMBER_OF_ROUNDS = Math.max(...RoundsArray);
 export const NUMBER_OF_QUESTIONS = Math.max(...QuestionsArray);
 export const MAX_SCORE =
-	QuestionsArray.reduce((a, b) => a + b, 0) * NUMBER_OF_QUESTIONS; // (1+2+3) * 10
+	QuestionsArray.reduce((a, b) => a + b, 0) * NUMBER_OF_ROUNDS; // (1+2+3) * 10
 
 export type Round = {
 	options: Record<Questions, Country[]>;
