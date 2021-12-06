@@ -44,5 +44,10 @@ export default {
 	evaluate: 'Vyhodnotiť',
 	next_question: 'Ďalšia otazka',
 	next_round: 'Ďalšie kolo',
-	restart_game: 'Reštartovať hru!'
+	restart_game: 'Reštartovať hru!',
+
+	thePopulationOf: 'Počet obyvateľov krajiny',
+	is: 'je',
+	yourGuessWas: 'Tvoj odhad bol',
+	congratulations: 'Gratulujeme!'
 };

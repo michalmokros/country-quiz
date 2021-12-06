@@ -74,7 +74,10 @@ const EndScreen: FC = () => {
 				gap: 1
 			}}
 		>
-			<Typography variant="h1"> Congratulations {user?.displayName}</Typography>
+			<Typography variant="h1">
+				{' '}
+				{t('congratulations')} {user?.displayName}
+			</Typography>
 			<Typography variant="h2">
 				{' '}
 				{t('score_text')} {score}/{MAX_SCORE}

@@ -77,8 +77,8 @@ const PopulationAnswer: FC<Props> = ({
 						borderColor: guessColor[0]
 					}}
 				>
-					The population of {round.country.name[l]} is{' '}
-					{round.country.population.toLocaleString(l)}. Your guess was{' '}
+					{t('thePopulationOf')} {round.country.name[l]} {t('is')}{' '}
+					{round.country.population.toLocaleString(l)}. {t('yourGuessWas')}{' '}
 					{populationGuess.toLocaleString(l)}.
 				</Typography>
 			</Grid>

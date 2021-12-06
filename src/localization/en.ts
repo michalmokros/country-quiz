@@ -45,5 +45,10 @@ export default {
 	evaluate: 'Evaluate',
 	next_question: 'Next question',
 	next_round: 'Next round',
-	restart_game: 'Restart game!'
+	restart_game: 'Restart game!',
+
+	thePopulationOf: 'The population of',
+	is: 'is',
+	yourGuessWas: 'Your guess was',
+	congratulations: 'Congratulations'
 };
