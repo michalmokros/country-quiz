@@ -1,14 +1,14 @@
 import { Button, Grid, TextField, Typography } from '@mui/material';
 import { FC, useState } from 'react';
 
-import { useRound } from '../../hooks/useGame';
+import { isQuestionAnswered, useRound } from '../../hooks/useGame';
 import { useLanguage, useTranslation } from '../../hooks/useTranslation';
+import { Game } from '../../utils/types';
 
 type Props = {
 	giveScore: () => void;
 	checkAnswer: (answer: string | number) => boolean;
-	buttonClicked: boolean;
-	setButtonClicked: React.Dispatch<React.SetStateAction<boolean>>;
+	alterGame: (newGame: Partial<Game>) => void;
 	guessColor: string[];
 	setGuessColor: React.Dispatch<React.SetStateAction<string[]>>;
 };
@@ -16,14 +16,14 @@ type Props = {
 const PopulationAnswer: FC<Props> = ({
 	giveScore,
 	checkAnswer,
-	buttonClicked,
-	setButtonClicked,
+	alterGame,
 	guessColor,
 	setGuessColor
 }: Props) => {
 	const [populationGuess, setPopulationGuess] = useState<number>(0);
 	const t = useTranslation();
 	const round = useRound();
+	const isAnswered = isQuestionAnswered();
 	const [l] = useLanguage();
 
 	return (
@@ -37,7 +37,7 @@ const PopulationAnswer: FC<Props> = ({
 					variant="filled"
 					type="number"
 					onChange={e => setPopulationGuess(Number.parseInt(e.target.value))}
-					sx={{ display: buttonClicked ? 'none' : 'inherit' }}
+					sx={{ display: isAnswered ? 'none' : 'inherit' }}
 				/>
 			</Grid>
 			<Grid item xs={2} alignItems="stretch" style={{ display: 'flex' }}>
@@ -46,7 +46,7 @@ const PopulationAnswer: FC<Props> = ({
 					sx={{
 						height: '100%',
 						bgcolor: guessColor[0],
-						display: buttonClicked ? 'none' : 'inherit'
+						display: isAnswered ? 'none' : 'inherit'
 					}}
 					variant="outlined"
 					onClick={() => {
@@ -60,7 +60,7 @@ const PopulationAnswer: FC<Props> = ({
 								color[0] = 'red';
 								setGuessColor(color);
 							}
-							setButtonClicked(true);
+							alterGame({ isQuestionAnswered: true });
 						}
 					}}
 				>
@@ -72,7 +72,7 @@ const PopulationAnswer: FC<Props> = ({
 					variant="h6"
 					align="center"
 					sx={{
-						display: !buttonClicked ? 'none' : 'inherit',
+						display: !isAnswered ? 'none' : 'inherit',
 						border: 'solid',
 						borderColor: guessColor[0]
 					}}

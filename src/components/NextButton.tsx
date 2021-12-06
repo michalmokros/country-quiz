@@ -14,14 +14,12 @@ import {
 type Props = {
 	isRight: boolean;
 	alterGame: (newGame: Partial<Game>) => void;
-	setButtonClicked: React.Dispatch<React.SetStateAction<boolean>>;
 	setGuessColor: React.Dispatch<React.SetStateAction<string[]>>;
 };
 
 const NextButton: FC<Props> = ({
 	isRight,
 	alterGame,
-	setButtonClicked,
 	setGuessColor
 }: Props) => {
 	const [game] = useGame();
@@ -58,7 +56,7 @@ const NextButton: FC<Props> = ({
 				sx={{ border: 'solid', height: '100%' }}
 				onClick={() => {
 					setNextQuestionOrRound(isRight);
-					setButtonClicked(false);
+					alterGame({ isQuestionAnswered: false });
 					setGuessColor(['inherit', 'inherit', 'inherit', 'inherit']);
 				}}
 			>

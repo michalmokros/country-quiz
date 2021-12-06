@@ -1,15 +1,14 @@
 import { Button } from '@mui/material';
 import { FC } from 'react';
 
-import { useQuestion, useRound } from '../../hooks/useGame';
+import { isQuestionAnswered, useQuestion, useRound } from '../../hooks/useGame';
 import { useLanguage } from '../../hooks/useTranslation';
-import { Country, CountryAnswer } from '../../utils/types';
+import { Country, CountryAnswer, Game } from '../../utils/types';
 
 type Props = {
 	giveScore: () => void;
 	checkAnswer: (answer: string | number) => boolean;
-	buttonClicked: boolean;
-	setButtonClicked: React.Dispatch<React.SetStateAction<boolean>>;
+	alterGame: (newGame: Partial<Game>) => void;
 	guessColor: string[];
 	setGuessColor: React.Dispatch<React.SetStateAction<string[]>>;
 	setIsRight: (newIsRight: boolean) => void;
@@ -20,8 +19,7 @@ type Props = {
 const ButtonAnswer: FC<Props> = ({
 	giveScore,
 	checkAnswer,
-	buttonClicked,
-	setButtonClicked,
+	alterGame,
 	guessColor,
 	setGuessColor,
 	setIsRight,
@@ -31,6 +29,7 @@ const ButtonAnswer: FC<Props> = ({
 	const round = useRound();
 	const question = useQuestion();
 	const [l] = useLanguage();
+	const isAnswered = isQuestionAnswered();
 
 	return (
 		<Button
@@ -42,8 +41,8 @@ const ButtonAnswer: FC<Props> = ({
 				bgcolor: guessColor[i]
 			}}
 			onClick={e => {
-				if (!buttonClicked) {
-					setButtonClicked(true);
+				if (!isAnswered) {
+					alterGame({ isQuestionAnswered: true });
 					const color = guessColor;
 					const isRight = checkAnswer((e.target as HTMLInputElement).id);
 					if (isRight) {

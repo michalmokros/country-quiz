@@ -17,7 +17,6 @@ const GameLayout: FC = () => {
 		setGame(prevGame => ({ ...prevGame, ...newGame }));
 
 	const [isRight, setIsRight] = useState(false);
-	const [buttonClicked, setButtonClicked] = useState(false);
 	const [guessColor, setGuessColor] = useState<string[]>([
 		'inherit',
 		'inherit',
@@ -59,16 +58,13 @@ const GameLayout: FC = () => {
 			<ShowAnswers
 				setIsRight={setIsRight}
 				alterGame={alterGame}
-				buttonClicked={buttonClicked}
-				setButtonClicked={setButtonClicked}
 				guessColor={guessColor}
 				setGuessColor={setGuessColor}
 			/>
-			{buttonClicked ? (
+			{game.isQuestionAnswered ? (
 				<NextButton
 					isRight={isRight}
 					alterGame={alterGame}
-					setButtonClicked={setButtonClicked}
 					setGuessColor={setGuessColor}
 				/>
 			) : null}

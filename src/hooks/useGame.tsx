@@ -34,9 +34,11 @@ const countries: Country[] = data as Country[];
 export const GameProvider: FC = ({ children }) => {
 	const [game, setGame] = useState<Game>({
 		finished: false,
+		started: true,
 		score: 0,
 		currentRound: 1,
-		rounds: generateRounds()
+		rounds: generateRounds(),
+		isQuestionAnswered: false
 	});
 	const user = useLoggedInUser();
 
@@ -50,15 +52,17 @@ export const GameProvider: FC = ({ children }) => {
 					score: game.score
 				}
 			});
-		} else {
+		} else if (!game.finished && !game.started) {
 			setGame({
 				currentRound: 1,
 				finished: false,
 				rounds: generateRounds(),
-				score: 0
+				score: 0,
+				isQuestionAnswered: false,
+				started: true
 			});
 		}
-	}, [game.finished]);
+	}, [game.finished, game.started]);
 
 	return (
 		<GameContext.Provider value={[game, setGame]}>
@@ -87,6 +91,11 @@ export const getScore = (): number => {
 export const getCurrentRound = (): number => {
 	const [game] = useContext(GameContext);
 	return game.currentRound;
+};
+
+export const isQuestionAnswered = (): boolean => {
+	const [game] = useContext(GameContext);
+	return game.isQuestionAnswered;
 };
 
 const generateRounds = (): Record<Rounds, Round> => {

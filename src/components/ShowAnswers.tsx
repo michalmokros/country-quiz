@@ -2,17 +2,14 @@ import { Container, Grid } from '@mui/material';
 import { FC, useCallback } from 'react';
 
 import { useGame, useQuestion, useRound } from '../hooks/useGame';
-import { useLanguage } from '../hooks/useTranslation';
 import { CountryAnswer, Game } from '../utils/types';
 
-import PopulationAnswer from './Answers/PopulationAnswer';
 import ButtonAnswer from './Answers/ButtonAnswer';
+import PopulationAnswer from './Answers/PopulationAnswer';
 
 type Props = {
 	setIsRight: (newIsRight: boolean) => void;
 	alterGame: (newGame: Partial<Game>) => void;
-	buttonClicked: boolean;
-	setButtonClicked: React.Dispatch<React.SetStateAction<boolean>>;
 	guessColor: string[];
 	setGuessColor: React.Dispatch<React.SetStateAction<string[]>>;
 };
@@ -20,15 +17,12 @@ type Props = {
 const ShowAnswers: FC<Props> = ({
 	setIsRight,
 	alterGame,
-	buttonClicked,
-	setButtonClicked,
 	guessColor,
 	setGuessColor
 }: Props) => {
 	const [game] = useGame();
 	const round = useRound();
 	const question = useQuestion();
-	const [l] = useLanguage();
 
 	const giveScore = useCallback(() => {
 		alterGame({
@@ -71,8 +65,7 @@ const ShowAnswers: FC<Props> = ({
 					<PopulationAnswer
 						giveScore={giveScore}
 						checkAnswer={checkAnswer}
-						buttonClicked={buttonClicked}
-						setButtonClicked={setButtonClicked}
+						alterGame={alterGame}
 						guessColor={guessColor}
 						setGuessColor={setGuessColor}
 					/>
@@ -82,8 +75,7 @@ const ShowAnswers: FC<Props> = ({
 							<ButtonAnswer
 								giveScore={giveScore}
 								checkAnswer={checkAnswer}
-								buttonClicked={buttonClicked}
-								setButtonClicked={setButtonClicked}
+								alterGame={alterGame}
 								guessColor={guessColor}
 								setGuessColor={setGuessColor}
 								setIsRight={setIsRight}

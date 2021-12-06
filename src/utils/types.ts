@@ -43,7 +43,9 @@ export type Round = {
 
 export type Game = {
 	finished: boolean;
+	started: boolean;
 	score: number;
 	currentRound: Rounds;
 	rounds: Record<Rounds, Round>;
+	isQuestionAnswered: boolean;
 };
