@@ -8,6 +8,8 @@ import useLoggedInUser from '../hooks/useLoggedInUser';
 import { useTranslation } from '../hooks/useTranslation';
 import { MAX_SCORE } from '../utils/types';
 
+import RestartButton from './RestartButton';
+
 const EndScreen: FC = () => {
 	const score = getScore();
 	const user = useLoggedInUser();
@@ -82,14 +84,8 @@ const EndScreen: FC = () => {
 				{' '}
 				{t('score_text')} {score}/{MAX_SCORE}
 			</Typography>
-			<Button
-				onClick={() => {
-					setGame(prevGame => ({ ...prevGame, ...{ finished: false } }));
-				}}
-			>
-				{' '}
-				{t('restart_game')}{' '}
-			</Button>
+
+			<RestartButton />
 
 			<ReactCanvasConfetti
 				refConfetti={getInstance}

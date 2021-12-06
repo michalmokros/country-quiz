@@ -44,7 +44,8 @@ export default {
 	evaluate: 'Vyhodnotiť',
 	next_question: 'Ďalšia otazka',
 	next_round: 'Ďalšie kolo',
-	restart_game: 'Reštartovať hru!',
+	restart_game: 'Reštartovať hru',
+	back_to_game: 'Späť do hry',
 
 	thePopulationOf: 'Počet obyvateľov krajiny',
 	is: 'je',

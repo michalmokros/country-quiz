@@ -45,7 +45,8 @@ export default {
 	evaluate: 'Evaluate',
 	next_question: 'Next question',
 	next_round: 'Next round',
-	restart_game: 'Restart game!',
+	restart_game: 'Restart game',
+	back_to_game: 'Back to game',
 
 	thePopulationOf: 'The population of',
 	is: 'is',

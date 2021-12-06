@@ -1,24 +1,38 @@
 import { FC } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { AppBar, Box, Button, Container, Toolbar } from '@mui/material';
 
 import { useTranslation } from '../hooks/useTranslation';
 import useLoggedInUser from '../hooks/useLoggedInUser';
 import { signOut } from '../utils/firebase';
+import { useGame } from '../hooks/useGame';
 
 import LanguageSwitch from './LanguageSwitch';
+import RestartButton from './RestartButton';
 
 const Layout: FC = ({ children }) => {
 	const t = useTranslation();
 	const user = useLoggedInUser();
+	const loc = useLocation();
+	const [game] = useGame();
+
 	return (
 		<>
 			<AppBar position="fixed">
 				<Container maxWidth="md">
 					<Toolbar disableGutters sx={{ gap: 5 }}>
-						<Button color="primary" component={Link} to="/play">
-							{t('play')}
-						</Button>
+						{loc.pathname === '/play' ? (
+							<RestartButton />
+						) : game.started ? (
+							<Button color="primary" component={Link} to="/play">
+								{t('back_to_game')}
+							</Button>
+						) : (
+							<Button color="primary" component={Link} to="/play">
+								{t('play')}
+							</Button>
+						)}
+
 						<Button color="primary" component={Link} to="/scoreboard">
 							{t('scoreboard')}
 						</Button>
