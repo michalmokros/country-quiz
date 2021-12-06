@@ -1,18 +1,17 @@
 import { Container } from '@mui/material';
 import { FC, useState } from 'react';
 
-import { useGame, useRound } from '../hooks/useGame';
+import { useGame } from '../hooks/useGame';
 import { Game } from '../utils/types';
 
 import EndScreen from './EndScreen';
-import NextQuestionOrRoundButton from './NextQuestionOrRoundButton';
+import NextButton from './NextButton';
 import ShowAnswers from './ShowAnswers';
 import ShowQuestion from './ShowQuestion';
 import ShowScore from './ShowScore';
 
 const GameLayout: FC = () => {
 	const [game, setGame] = useGame();
-	const round = useRound();
 
 	const alterGame = (newGame: Partial<Game>) =>
 		setGame(prevGame => ({ ...prevGame, ...newGame }));
@@ -66,11 +65,10 @@ const GameLayout: FC = () => {
 				setGuessColor={setGuessColor}
 			/>
 			{buttonClicked ? (
-				<NextQuestionOrRoundButton
+				<NextButton
 					isRight={isRight}
 					alterGame={alterGame}
 					setButtonClicked={setButtonClicked}
-					currentQuestion={round.currentQuestion}
 					setGuessColor={setGuessColor}
 				/>
 			) : null}

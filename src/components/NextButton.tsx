@@ -15,15 +15,13 @@ type Props = {
 	isRight: boolean;
 	alterGame: (newGame: Partial<Game>) => void;
 	setButtonClicked: React.Dispatch<React.SetStateAction<boolean>>;
-	currentQuestion: Questions;
 	setGuessColor: React.Dispatch<React.SetStateAction<string[]>>;
 };
 
-const NextQuestionOrRoundButton: FC<Props> = ({
+const NextButton: FC<Props> = ({
 	isRight,
 	alterGame,
 	setButtonClicked,
-	currentQuestion,
 	setGuessColor
 }: Props) => {
 	const [game] = useGame();
@@ -73,4 +71,4 @@ const NextQuestionOrRoundButton: FC<Props> = ({
 		</Grid>
 	);
 };
-export default NextQuestionOrRoundButton;
+export default NextButton;

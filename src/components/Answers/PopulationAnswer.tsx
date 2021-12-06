@@ -1,12 +1,11 @@
 import { Button, Grid, TextField } from '@mui/material';
 import { FC, useState } from 'react';
 
-import { useTranslation } from '../hooks/useTranslation';
+import { useTranslation } from '../../hooks/useTranslation';
 
 type Props = {
 	giveScore: () => void;
 	checkAnswer: (answer: string | number) => boolean;
-	buttonClicked: boolean;
 	setButtonClicked: React.Dispatch<React.SetStateAction<boolean>>;
 	guessColor: string[];
 	setGuessColor: React.Dispatch<React.SetStateAction<string[]>>;
@@ -15,7 +14,6 @@ type Props = {
 const PopulationAnswer: FC<Props> = ({
 	giveScore,
 	checkAnswer,
-	buttonClicked,
 	setButtonClicked,
 	guessColor,
 	setGuessColor

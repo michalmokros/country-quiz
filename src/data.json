@@ -136,11 +136,11 @@
 		"population": 166303498,
 		"name": {
 			"en": "Bangladesh",
-			"sk": "Bangládeš"
+			"sk": "Bangladéš"
 		},
 		"capital": {
 			"en": "Dhaka",
-			"sk": "Dhaka"
+			"sk": "Dháka"
 		}
 	},
 	{
@@ -184,7 +184,7 @@
 		"population": 1748296,
 		"name": {
 			"en": "Bahrain",
-			"sk": "Bahrain"
+			"sk": "Bahrajn"
 		},
 		"capital": {
 			"en": "Manama",
@@ -248,7 +248,7 @@
 		},
 		"capital": {
 			"en": "Brasilia",
-			"sk": "Brasilia"
+			"sk": "Brazília"
 		}
 	},
 	{
@@ -364,7 +364,7 @@
 		"population": 27224265,
 		"name": {
 			"en": "Cameroon",
-			"sk": "Kamerun"
+			"sk": "Kamerún"
 		},
 		"capital": {
 			"en": "Yaounde",
@@ -380,7 +380,7 @@
 		},
 		"capital": {
 			"en": "Beijing",
-			"sk": "Beijing"
+			"sk": "Peking"
 		}
 	},
 	{
@@ -440,7 +440,7 @@
 		},
 		"capital": {
 			"en": "Nicosia",
-			"sk": "Nicosia"
+			"sk": "Nikózia"
 		}
 	},
 	{
@@ -464,7 +464,7 @@
 		},
 		"capital": {
 			"en": "Berlin",
-			"sk": "Berlin"
+			"sk": "Berlín"
 		}
 	},
 	{
@@ -560,7 +560,7 @@
 		},
 		"capital": {
 			"en": "Cairo",
-			"sk": "Cairo"
+			"sk": "Káhira"
 		}
 	},
 	{
@@ -596,7 +596,7 @@
 		},
 		"capital": {
 			"en": "Addis Ababa",
-			"sk": "Addis Ababa"
+			"sk": "Addis Abeba"
 		}
 	},
 	{
@@ -800,7 +800,7 @@
 		},
 		"capital": {
 			"en": "Guatemala City",
-			"sk": "Guatemala City"
+			"sk": "Guatemala"
 		}
 	},
 	{
@@ -848,7 +848,7 @@
 		},
 		"capital": {
 			"en": "Zagreb",
-			"sk": "Zagreb"
+			"sk": "Záhreb"
 		}
 	},
 	{
@@ -904,7 +904,7 @@
 		"population": 8789774,
 		"name": {
 			"en": "Israel",
-			"sk": "Írsko"
+			"sk": "Izrael"
 		},
 		"capital": {
 			"en": "Jerusalem",
@@ -920,7 +920,7 @@
 		},
 		"capital": {
 			"en": "New Delhi",
-			"sk": "New Delhi"
+			"sk": "Naí Dillí"
 		}
 	},
 	{
@@ -1004,7 +1004,7 @@
 		},
 		"capital": {
 			"en": "Tokyo",
-			"sk": "Tokyo"
+			"sk": "Tokio"
 		}
 	},
 	{
@@ -1028,7 +1028,7 @@
 		},
 		"capital": {
 			"en": "Bishkek",
-			"sk": "Bishkek"
+			"sk": "Biškek"
 		}
 	},
 	{
@@ -1076,7 +1076,7 @@
 		},
 		"capital": {
 			"en": "Pyongyang",
-			"sk": "Pyongyang"
+			"sk": "Pchjongjang"
 		}
 	},
 	{
@@ -1096,11 +1096,11 @@
 		"population": 4328550,
 		"name": {
 			"en": "Kuwait",
-			"sk": "Kuwajt"
+			"sk": "Kuvajt"
 		},
 		"capital": {
 			"en": "Kuwait City",
-			"sk": "Kuwajt"
+			"sk": "Kuvajt"
 		}
 	},
 	{
@@ -1156,7 +1156,7 @@
 		"population": 21497310,
 		"name": {
 			"en": "Sri Lanka",
-			"sk": "Sri Lanka"
+			"sk": "Srí Lanka"
 		},
 		"capital": {
 			"en": "Colombo",
@@ -1327,8 +1327,8 @@
 			"sk": "Mongolsko"
 		},
 		"capital": {
-			"en": "Ulan Bator",
-			"sk": "Ulan Bator"
+			"en": "Ulaanbaatar",
+			"sk": "Ulanbátar"
 		}
 	},
 	{
@@ -1348,7 +1348,7 @@
 		"population": 4775119,
 		"name": {
 			"en": "Mauritania",
-			"sk": "Mauritánie"
+			"sk": "Mauritánia"
 		},
 		"capital": {
 			"en": "Nouakchott",
@@ -1408,11 +1408,11 @@
 		"population": 130262216,
 		"name": {
 			"en": "Mexico",
-			"sk": "Mexico"
+			"sk": "Mexiko"
 		},
 		"capital": {
 			"en": "Mexico City",
-			"sk": "Mexico City"
+			"sk": "Mexiko"
 		}
 	},
 	{
@@ -1600,7 +1600,7 @@
 		"population": 111046913,
 		"name": {
 			"en": "Philippines",
-			"sk": "Filpíny"
+			"sk": "Filipíny"
 		},
 		"capital": {
 			"en": "Manila",
@@ -1628,7 +1628,7 @@
 		},
 		"capital": {
 			"en": "Warsaw",
-			"sk": "Waršava"
+			"sk": "Varšava"
 		}
 	},
 	{
@@ -1652,7 +1652,7 @@
 		},
 		"capital": {
 			"en": "Lisbon",
-			"sk": "Lisbon"
+			"sk": "Lisabon"
 		}
 	},
 	{
@@ -1807,8 +1807,8 @@
 			"sk": "Singapur"
 		},
 		"capital": {
-			"en": "Singapur",
-			"sk": "Bratislava"
+			"en": "Singapore",
+			"sk": "Singapur"
 		}
 	},
 	{
@@ -1852,11 +1852,11 @@
 		"population": 34017,
 		"name": {
 			"en": "San Marino",
-			"sk": "San Marino"
+			"sk": "San Maríno"
 		},
 		"capital": {
 			"en": "San Marino",
-			"sk": "San Marino"
+			"sk": "San Maríno"
 		}
 	},
 	{
@@ -1880,7 +1880,7 @@
 		},
 		"capital": {
 			"en": "Mogadishu",
-			"sk": "Mogadishu"
+			"sk": "Mogadišo"
 		}
 	},
 	{
@@ -1976,7 +1976,7 @@
 		},
 		"capital": {
 			"en": "Dushanbe",
-			"sk": "Dushanbe"
+			"sk": "Dušanbe"
 		}
 	},
 	{
@@ -2228,7 +2228,7 @@
 		},
 		"capital": {
 			"en": "Pretoria",
-			"sk": "Pretoria"
+			"sk": "Pretória"
 		}
 	},
 	{
