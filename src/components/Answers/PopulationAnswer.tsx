@@ -1,11 +1,13 @@
-import { Button, Grid, TextField } from '@mui/material';
+import { Button, Grid, TextField, Typography } from '@mui/material';
 import { FC, useState } from 'react';
 
-import { useTranslation } from '../../hooks/useTranslation';
+import { useRound } from '../../hooks/useGame';
+import { useLanguage, useTranslation } from '../../hooks/useTranslation';
 
 type Props = {
 	giveScore: () => void;
 	checkAnswer: (answer: string | number) => boolean;
+	buttonClicked: boolean;
 	setButtonClicked: React.Dispatch<React.SetStateAction<boolean>>;
 	guessColor: string[];
 	setGuessColor: React.Dispatch<React.SetStateAction<string[]>>;
@@ -14,12 +16,15 @@ type Props = {
 const PopulationAnswer: FC<Props> = ({
 	giveScore,
 	checkAnswer,
+	buttonClicked,
 	setButtonClicked,
 	guessColor,
 	setGuessColor
 }: Props) => {
 	const [populationGuess, setPopulationGuess] = useState<number>(0);
 	const t = useTranslation();
+	const round = useRound();
+	const [l] = useLanguage();
 
 	return (
 		<>
@@ -32,14 +37,19 @@ const PopulationAnswer: FC<Props> = ({
 					variant="filled"
 					type="number"
 					onChange={e => setPopulationGuess(Number.parseInt(e.target.value))}
+					sx={{ display: buttonClicked ? 'none' : 'inherit' }}
 				/>
 			</Grid>
 			<Grid item xs={2} alignItems="stretch" style={{ display: 'flex' }}>
 				<Button
 					fullWidth
-					sx={{ height: '100%', bgcolor: guessColor[0] }}
+					sx={{
+						height: '100%',
+						bgcolor: guessColor[0],
+						display: buttonClicked ? 'none' : 'inherit'
+					}}
 					variant="outlined"
-					onClick={e => {
+					onClick={() => {
 						if (populationGuess > 0) {
 							const color = guessColor;
 							if (checkAnswer(populationGuess)) {
@@ -50,13 +60,27 @@ const PopulationAnswer: FC<Props> = ({
 								color[0] = 'red';
 								setGuessColor(color);
 							}
-							setPopulationGuess(0);
 							setButtonClicked(true);
 						}
 					}}
 				>
 					{t('submit')}
 				</Button>
+			</Grid>
+			<Grid item xs={12}>
+				<Typography
+					variant="h6"
+					align="center"
+					sx={{
+						display: !buttonClicked ? 'none' : 'inherit',
+						border: 'solid',
+						borderColor: guessColor[0]
+					}}
+				>
+					The population of {round.country.name[l]} is{' '}
+					{round.country.population.toLocaleString(l)}. Your guess was{' '}
+					{populationGuess.toLocaleString(l)}.
+				</Typography>
 			</Grid>
 		</>
 	);

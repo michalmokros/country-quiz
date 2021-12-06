@@ -672,6 +672,54 @@
 		}
 	},
 	{
+		"key": "GB-ENG",
+		"population": 53012456,
+		"name": {
+			"en": "England",
+			"sk": "Anglicko"
+		},
+		"capital": {
+			"en": "London",
+			"sk": "Londýn"
+		}
+	},
+	{
+		"key": "GB-NIR",
+		"population": 1810863,
+		"name": {
+			"en": "Northern Ireland",
+			"sk": "Severné Írsko"
+		},
+		"capital": {
+			"en": "Belfast",
+			"sk": "Belfast"
+		}
+	},
+	{
+		"key": "GB-SCT",
+		"population": 5313600,
+		"name": {
+			"en": "Scotland",
+			"sk": "Škótsko"
+		},
+		"capital": {
+			"en": "Edinburgh",
+			"sk": "Edinburgh"
+		}
+	},
+	{
+		"key": "GB-WLS",
+		"population": 5313600,
+		"name": {
+			"en": "Wales",
+			"sk": "Wales"
+		},
+		"capital": {
+			"en": "Cardiff",
+			"sk": "Cardiff"
+		}
+	},
+	{
 		"key": "GD",
 		"population": 113021,
 		"name": {

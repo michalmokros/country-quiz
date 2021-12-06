@@ -71,6 +71,7 @@ const ShowAnswers: FC<Props> = ({
 					<PopulationAnswer
 						giveScore={giveScore}
 						checkAnswer={checkAnswer}
+						buttonClicked={buttonClicked}
 						setButtonClicked={setButtonClicked}
 						guessColor={guessColor}
 						setGuessColor={setGuessColor}
