@@ -27,7 +27,7 @@ const LanguageSwitch = () => {
 	const [language, setLanguage] = useLanguage();
 	const t = useTranslation();
 	return (
-		<Box>
+		<>
 			<FlagButton
 				onClick={() => setLanguage('en')}
 				active={language === 'en'}
@@ -40,7 +40,7 @@ const LanguageSwitch = () => {
 				title={t('sk')}
 				country="SK"
 			/>
-		</Box>
+		</>
 	);
 };
 

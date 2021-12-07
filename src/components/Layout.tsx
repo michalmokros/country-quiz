@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { AppBar, Box, Button, Container, Toolbar } from '@mui/material';
+import { AppBar, Box, Button, Container, Grid, Toolbar } from '@mui/material';
 
 import { useTranslation } from '../hooks/useTranslation';
 import useLoggedInUser from '../hooks/useLoggedInUser';
@@ -20,43 +20,61 @@ const Layout: FC = ({ children }) => {
 		<>
 			<AppBar position="fixed">
 				<Container maxWidth="md">
-					<Toolbar disableGutters sx={{ gap: 5 }}>
-						{loc.pathname === '/play' ? (
-							<RestartButton />
-						) : game.started ? (
-							<Button color="primary" component={Link} to="/play">
-								{t('back_to_game')}
-							</Button>
-						) : (
-							<Button color="primary" component={Link} to="/play">
-								{t('play')}
-							</Button>
-						)}
-
-						<Button color="primary" component={Link} to="/scoreboard">
-							{t('scoreboard')}
-						</Button>
-						<Box sx={{ flexGrow: 1 }} />
-						<Button
-							component={Link}
-							to="/"
-							variant="outlined"
-							size="large"
-							sx={{ my: 'auto' }}
+					<Toolbar disableGutters>
+						<Grid
+							container
+							sx={{
+								gap: '1',
+								justifyContent: 'space-between',
+								alignItems: 'center'
+							}}
 						>
-							{t('country_quiz')}
-						</Button>
-						<Box sx={{ flexGrow: 1 }} />
-						{!user ? (
-							<Button color="primary" component={Link} to="/login">
-								{t('login')}
-							</Button>
-						) : (
-							<Button color="primary" onClick={signOut}>
-								{t('logout')}
-							</Button>
-						)}
-						<LanguageSwitch />
+							<Grid item xs={4} sx={{ textAlign: 'left' }}>
+								{loc.pathname === '/play' ? (
+									<RestartButton />
+								) : game.started ? (
+									<Button color="primary" component={Link} to="/play">
+										{t('back_to_game')}
+									</Button>
+								) : (
+									<Button color="primary" component={Link} to="/play">
+										{t('play')}
+									</Button>
+								)}
+								<Button color="primary" component={Link} to="/scoreboard">
+									{t('scoreboard')}
+								</Button>
+							</Grid>
+
+							<Grid item xs={4} sx={{ textAlign: 'center' }}>
+								<Button
+									component={Link}
+									to="/"
+									variant="outlined"
+									size="large"
+									sx={{ my: 'auto' }}
+								>
+									{t('country_quiz')}
+								</Button>
+							</Grid>
+
+							<Grid
+								item
+								xs={4}
+								sx={{ textAlign: 'right', flexDirection: 'row' }}
+							>
+								{!user ? (
+									<Button color="primary" component={Link} to="/login">
+										{t('login')}
+									</Button>
+								) : (
+									<Button color="primary" onClick={signOut}>
+										{t('logout')}
+									</Button>
+								)}
+								<LanguageSwitch />
+							</Grid>
+						</Grid>
 					</Toolbar>
 				</Container>
 			</AppBar>
