@@ -62,7 +62,7 @@ const NextButton: FC<Props> = ({
 			>
 				{isRight && round.currentQuestion < NUMBER_OF_QUESTIONS
 					? t('next_question')
-					: game.currentRound === 10
+					: game.currentRound === NUMBER_OF_ROUNDS
 					? t('evaluate')
 					: t('next_round')}
 			</Button>

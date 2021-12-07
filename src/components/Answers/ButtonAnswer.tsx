@@ -37,9 +37,9 @@ const ButtonAnswer: FC<Props> = ({
 			fullWidth
 			sx={{
 				border: 'solid',
-				height: '100%',
-				bgcolor: guessColor[i]
+				height: '100%'
 			}}
+			style={{ backgroundColor: guessColor[i] }}
 			onClick={e => {
 				if (!isAnswered) {
 					alterGame({ isQuestionAnswered: true });
