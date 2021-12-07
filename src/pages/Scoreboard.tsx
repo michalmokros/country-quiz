@@ -1,6 +1,13 @@
 import { RestaurantMenuTwoTone, Score } from '@mui/icons-material';
-import { Box, Container } from '@mui/material';
-import Grid from '@mui/material/Grid';
+import {
+	Box,
+	Button,
+	ButtonGroup,
+	Container,
+	Pagination,
+	Stack,
+	Grid
+} from '@mui/material';
 import { onSnapshot } from 'firebase/firestore';
 import { useEffect, useMemo, useState } from 'react';
 import { render } from 'react-dom';
@@ -10,6 +17,7 @@ import ScoreboardHeader from '../components/ScoreboardHeader';
 import usePageTitle from '../hooks/usePageTitle';
 import { useTranslation } from '../hooks/useTranslation';
 import { GameSession, gameSessionsCollection } from '../utils/firebase';
+import theme from '../utils/theme';
 
 type SortConfig = {
 	key: string;
@@ -19,16 +27,18 @@ type SortConfig = {
 const Scoreboard = () => {
 	const t = useTranslation();
 	usePageTitle(t('scoreboard'));
-	const [gameSessions, setgameSessions] = useState<GameSession[]>([]);
+	const [gameSessions, setGameSessions] = useState<GameSession[]>([]);
 	const [sortConfig, setSortConfig] = useState<SortConfig>({
 		key: 'score',
 		descending: false
 	});
+	const [pageLength, setPageLength] = useState<5 | 10 | 20>(10);
+	const [currentData, setCurrentData] = useState<GameSession[]>([]);
 
 	useEffect(
 		() =>
 			onSnapshot(gameSessionsCollection, snapshot =>
-				setgameSessions(
+				setGameSessions(
 					snapshot.docs
 						.map(d => d.data())
 						.sort((lhs, rhs) => lhs.score.score - rhs.score.score)
@@ -77,16 +87,55 @@ const Scoreboard = () => {
 				});
 			}
 		}
+		setCurrentData(sortableItems.slice(0, pageLength));
 		return sortableItems;
-	}, [gameSessions, sortConfig]);
+	}, [gameSessions, sortConfig, pageLength]);
+
+	const changePage = (event: React.ChangeEvent<unknown>, page: number) => {
+		console.log(sortedItems);
+		setCurrentData(
+			sortedItems.slice(
+				(page - 1) * pageLength,
+				(page - 1) * pageLength + pageLength
+			)
+		);
+		console.log(currentData);
+	};
 
 	return (
-		<Container sx={{ flexGrow: 1 }}>
+		<Container sx={{ flexGrow: 1, justifyContent: 'flex-start' }}>
 			<Grid container spacing={0} maxWidth="md">
 				<ScoreboardHeader requestSort={requestSort} />
-				{sortedItems.map((r, i) => (
+				{currentData.map((r, i) => (
 					<ScoreboardRow key={i} {...r} />
 				))}
+			</Grid>
+			<Grid container spacing={0} maxWidth="md">
+				<Grid item xs={10}>
+					<Stack spacing={2} sx={{ alignItems: 'center' }}>
+						<Pagination
+							count={Math.round(gameSessions.length / pageLength)}
+							showFirstButton
+							showLastButton
+							boundaryCount={2}
+							color="primary"
+							onChange={changePage}
+						/>
+					</Stack>
+				</Grid>
+				<Grid item xs={2}>
+					<ButtonGroup size="small" aria-label="small button group">
+						<Button key="five" onClick={() => setPageLength(5)}>
+							5
+						</Button>
+						<Button key="ten" onClick={() => setPageLength(10)}>
+							10
+						</Button>
+						<Button key="twenty" onClick={() => setPageLength(20)}>
+							20
+						</Button>
+					</ButtonGroup>
+				</Grid>
 			</Grid>
 		</Container>
 	);
