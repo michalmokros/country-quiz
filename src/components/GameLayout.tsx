@@ -36,7 +36,7 @@ const GameLayout: FC = () => {
 				flexDirection: 'column',
 				justifyContent: 'center',
 				gap: 1,
-				pt: 5
+				pt: 1
 			}}
 		>
 			<ShowScore />

@@ -78,7 +78,7 @@ const Layout: FC = ({ children }) => {
 				sx={{
 					display: 'flex',
 					flexDirection: 'column',
-					justifyContent: 'flex-start',
+					justifyContent: 'center',
 					alignItems: 'flex-start',
 					height: '100vh',
 					pt: 8,

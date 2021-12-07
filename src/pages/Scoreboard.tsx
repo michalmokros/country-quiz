@@ -28,7 +28,7 @@ const Scoreboard = () => {
 		key: 'score',
 		descending: false
 	});
-	const [pageLength, setPageLength] = useState<5 | 10 | 20>(10);
+	const PAGE_LENGTH = 10;
 	const [currentData, setCurrentData] = useState<GameSession[]>([]);
 
 	useEffect(
@@ -83,16 +83,16 @@ const Scoreboard = () => {
 				});
 			}
 		}
-		setCurrentData(sortableItems.slice(0, pageLength));
+		setCurrentData(sortableItems.slice(0, PAGE_LENGTH));
 		return sortableItems;
-	}, [gameSessions, sortConfig, pageLength]);
+	}, [gameSessions, sortConfig]);
 
 	const changePage = (page: number) => {
 		console.log(sortedItems);
 		setCurrentData(
 			sortedItems.slice(
-				(page - 1) * pageLength,
-				(page - 1) * pageLength + pageLength
+				(page - 1) * PAGE_LENGTH,
+				(page - 1) * PAGE_LENGTH + PAGE_LENGTH
 			)
 		);
 		console.log(currentData);
@@ -106,33 +106,16 @@ const Scoreboard = () => {
 					<ScoreboardRow key={i} {...r} />
 				))}
 			</Grid>
-			<Grid container spacing={0} maxWidth="md">
-				<Grid item xs={10}>
-					<Stack spacing={2} sx={{ alignItems: 'center' }}>
-						<Pagination
-							count={Math.round(gameSessions.length / pageLength)}
-							showFirstButton
-							showLastButton
-							boundaryCount={2}
-							color="primary"
-							onChange={(_e, p) => changePage(p)}
-						/>
-					</Stack>
-				</Grid>
-				<Grid item xs={2}>
-					<ButtonGroup size="small" aria-label="small button group">
-						<Button key="five" onClick={() => setPageLength(5)}>
-							5
-						</Button>
-						<Button key="ten" onClick={() => setPageLength(10)}>
-							10
-						</Button>
-						<Button key="twenty" onClick={() => setPageLength(20)}>
-							20
-						</Button>
-					</ButtonGroup>
-				</Grid>
-			</Grid>
+			<Stack spacing={2} sx={{ alignItems: 'center' }}>
+				<Pagination
+					count={Math.round(gameSessions.length / PAGE_LENGTH)}
+					showFirstButton
+					showLastButton
+					boundaryCount={2}
+					color="primary"
+					onChange={(_e, p) => changePage(p)}
+				/>
+			</Stack>
 		</Container>
 	);
 };
