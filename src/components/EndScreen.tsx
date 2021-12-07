@@ -1,9 +1,9 @@
-import { Button, Container, Typography } from '@mui/material';
+import { Container, Typography } from '@mui/material';
 import { CreateTypes } from 'canvas-confetti';
 import { FC, useCallback, useRef } from 'react';
 import ReactCanvasConfetti from 'react-canvas-confetti';
 
-import { getScore, useGame } from '../hooks/useGame';
+import { getScore } from '../hooks/useGame';
 import useLoggedInUser from '../hooks/useLoggedInUser';
 import { useTranslation } from '../hooks/useTranslation';
 import { MAX_SCORE } from '../utils/types';
@@ -14,7 +14,6 @@ const EndScreen: FC = () => {
 	const score = getScore();
 	const user = useLoggedInUser();
 	const t = useTranslation();
-	const [, setGame] = useGame();
 
 	const refAnimationInstance = useRef(null);
 

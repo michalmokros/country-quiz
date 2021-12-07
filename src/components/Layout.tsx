@@ -1,11 +1,10 @@
 import { FC } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { AppBar, Box, Button, Container, Grid, Toolbar } from '@mui/material';
+import { AppBar, Button, Container, Grid, Toolbar } from '@mui/material';
 
 import { useTranslation } from '../hooks/useTranslation';
 import useLoggedInUser from '../hooks/useLoggedInUser';
 import { signOut } from '../utils/firebase';
-import { useGame } from '../hooks/useGame';
 
 import LanguageSwitch from './LanguageSwitch';
 import RestartButton from './RestartButton';
@@ -14,7 +13,6 @@ const Layout: FC = ({ children }) => {
 	const t = useTranslation();
 	const user = useLoggedInUser();
 	const loc = useLocation();
-	const [game] = useGame();
 
 	return (
 		<>
@@ -32,10 +30,6 @@ const Layout: FC = ({ children }) => {
 							<Grid item xs={4} sx={{ textAlign: 'left' }}>
 								{loc.pathname === '/play' ? (
 									<RestartButton />
-								) : game.started ? (
-									<Button color="primary" component={Link} to="/play">
-										{t('back_to_game')}
-									</Button>
 								) : (
 									<Button color="primary" component={Link} to="/play">
 										{t('play')}
@@ -84,7 +78,7 @@ const Layout: FC = ({ children }) => {
 				sx={{
 					display: 'flex',
 					flexDirection: 'column',
-					justifyContent: 'center',
+					justifyContent: 'flex-start',
 					alignItems: 'flex-start',
 					height: '100vh',
 					pt: 8,
