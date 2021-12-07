@@ -51,5 +51,8 @@ export default {
 	thePopulationOf: 'The population of',
 	is: 'is',
 	yourGuessWas: 'Your guess was',
-	congratulations: 'Congratulations'
+	congratulations: 'Congratulations',
+	username: 'Username',
+	date: 'Date',
+	score: 'Score'
 };

@@ -1,6 +1,4 @@
-import { RestaurantMenuTwoTone, Score } from '@mui/icons-material';
 import {
-	Box,
 	Button,
 	ButtonGroup,
 	Container,
@@ -10,14 +8,12 @@ import {
 } from '@mui/material';
 import { onSnapshot } from 'firebase/firestore';
 import { useEffect, useMemo, useState } from 'react';
-import { render } from 'react-dom';
 
 import { ScoreboardRow } from '../components';
 import ScoreboardHeader from '../components/ScoreboardHeader';
 import usePageTitle from '../hooks/usePageTitle';
 import { useTranslation } from '../hooks/useTranslation';
 import { GameSession, gameSessionsCollection } from '../utils/firebase';
-import theme from '../utils/theme';
 
 type SortConfig = {
 	key: string;
@@ -91,7 +87,7 @@ const Scoreboard = () => {
 		return sortableItems;
 	}, [gameSessions, sortConfig, pageLength]);
 
-	const changePage = (event: React.ChangeEvent<unknown>, page: number) => {
+	const changePage = (page: number) => {
 		console.log(sortedItems);
 		setCurrentData(
 			sortedItems.slice(
@@ -119,7 +115,7 @@ const Scoreboard = () => {
 							showLastButton
 							boundaryCount={2}
 							color="primary"
-							onChange={changePage}
+							onChange={(_e, p) => changePage(p)}
 						/>
 					</Stack>
 				</Grid>

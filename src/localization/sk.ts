@@ -50,5 +50,8 @@ export default {
 	thePopulationOf: 'Počet obyvateľov krajiny',
 	is: 'je',
 	yourGuessWas: 'Tvoj odhad bol',
-	congratulations: 'Gratulujeme!'
+	congratulations: 'Gratulujeme!',
+	username: 'Meno hráča',
+	date: 'Dátum',
+	score: 'Skóre'
 };

@@ -1,11 +1,7 @@
-import { FC } from 'react';
 import { styled } from '@mui/material';
-import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Grid';
-import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 
-import { GameSession } from '../utils/firebase';
 import { useTranslation } from '../hooks/useTranslation';
 
 const Item = styled(Paper)(({ theme }) => ({
@@ -25,13 +21,13 @@ const ScoreboardRow = ({ requestSort }: Props) => {
 	return (
 		<>
 			<Grid item xs={5}>
-				<Item onClick={() => requestSort('by')}>Username</Item>
+				<Item onClick={() => requestSort('by')}>{t('username')}</Item>
 			</Grid>
 			<Grid item xs={5}>
-				<Item onClick={() => requestSort('date')}>Date</Item>
+				<Item onClick={() => requestSort('date')}>{t('date')}</Item>
 			</Grid>
 			<Grid item xs={2}>
-				<Item onClick={() => requestSort('score')}>Score</Item>
+				<Item onClick={() => requestSort('score')}>{t('score')}</Item>
 			</Grid>
 		</>
 	);
