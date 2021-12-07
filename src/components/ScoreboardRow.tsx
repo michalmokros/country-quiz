@@ -10,7 +10,10 @@ const Item = styled(Paper)(({ theme }) => ({
 	...theme.typography.body2,
 	padding: theme.spacing(1),
 	textAlign: 'center',
-	color: theme.palette.text.secondary
+	border: 'solid',
+	borderWidth: 'thin',
+	color: theme.palette.primary.main,
+	background: theme.palette.primary.contrastText
 }));
 
 const ScoreboardRow: FC<GameSession> = ({ by, date, score }) => {
