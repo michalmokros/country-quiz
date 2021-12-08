@@ -4,8 +4,8 @@ import { FC, useCallback } from 'react';
 import { useGame, useQuestion, useRound } from '../hooks/useGame';
 import { CountryAnswer, Game } from '../utils/types';
 
-import ButtonAnswer from './answers/ButtonAnswer';
-import PopulationAnswer from './answers/PopulationAnswer';
+import ButtonAnswer from './Answers/ButtonAnswer';
+import PopulationAnswer from './Answers/PopulationAnswer';
 
 type Props = {
 	alterGame: (newGame: Partial<Game>) => void;
