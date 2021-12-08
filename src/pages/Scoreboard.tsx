@@ -1,11 +1,4 @@
-import {
-	Button,
-	ButtonGroup,
-	Container,
-	Pagination,
-	Stack,
-	Grid
-} from '@mui/material';
+import { Container, Pagination, Stack, Grid } from '@mui/material';
 import { onSnapshot } from 'firebase/firestore';
 import { useEffect, useMemo, useState } from 'react';
 
