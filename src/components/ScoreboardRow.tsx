@@ -4,6 +4,7 @@ import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Grid';
 
 import { GameSession } from '../utils/firebase';
+import { useLanguage } from '../hooks/useTranslation';
 
 const Item = styled(Paper)(({ theme }) => ({
 	...theme.typography.body2,
@@ -17,6 +18,7 @@ const Item = styled(Paper)(({ theme }) => ({
 
 const ScoreboardRow: FC<GameSession> = ({ by, date, score }) => {
 	const username = by.split('@')[0];
+	const [l] = useLanguage();
 	return (
 		<>
 			<Grid item xs={5}>
@@ -24,7 +26,11 @@ const ScoreboardRow: FC<GameSession> = ({ by, date, score }) => {
 			</Grid>
 
 			<Grid item xs={5}>
-				<Item>{date.toDate().toLocaleDateString('SK')}</Item>
+				<Item>
+					{`${date.toDate().toLocaleDateString(l)}, ${date
+						.toDate()
+						.toLocaleTimeString(l)}`}
+				</Item>
 			</Grid>
 			<Grid item xs={2}>
 				<Item>
