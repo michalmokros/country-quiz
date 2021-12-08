@@ -20,7 +20,10 @@ import {
 	QuestionsArray,
 	MAX_SCORE,
 	QuestionOptions,
-	POPULATION_RANGE
+	POPULATION_RANGE_HIGH,
+	POPULATION_RANGE_MEDIUM,
+	POPULATION_RANGE_LOW,
+	BoundariesNames
 } from '../utils/types';
 import { gameSessionsCollection } from '../utils/firebase';
 
@@ -108,9 +111,11 @@ const generateRounds = (): Record<Rounds, Round> => {
 
 		for (const question of QuestionsArray) {
 			if (question === 3) {
+				const { lower, upper } = initializeBoundaries(roundCountry);
+
 				options[question] = {
-					lower: Math.round((1 - POPULATION_RANGE) * roundCountry.population),
-					upper: Math.round((1 + POPULATION_RANGE) * roundCountry.population)
+					lower,
+					upper
 				};
 			} else {
 				const randomCountries = _.shuffle([
@@ -136,6 +141,20 @@ const generateRounds = (): Record<Rounds, Round> => {
 	}
 
 	return rounds as Record<Rounds, Round>;
+};
+
+const initializeBoundaries = (country: Country) => {
+	const lower: Record<BoundariesNames, number> = {
+		high: Math.round((1 - POPULATION_RANGE_HIGH) * country.population),
+		medium: Math.round((1 - POPULATION_RANGE_MEDIUM) * country.population),
+		low: Math.round((1 - POPULATION_RANGE_LOW) * country.population)
+	};
+	const upper: Record<BoundariesNames, number> = {
+		high: Math.round((1 + POPULATION_RANGE_HIGH) * country.population),
+		medium: Math.round((1 + POPULATION_RANGE_MEDIUM) * country.population),
+		low: Math.round((1 + POPULATION_RANGE_LOW) * country.population)
+	};
+	return { lower, upper };
 };
 
 const pickRandomCountriesProps = (roundCountry: Country): Country[] =>

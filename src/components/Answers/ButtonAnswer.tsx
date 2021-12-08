@@ -6,8 +6,8 @@ import { useLanguage } from '../../hooks/useTranslation';
 import { Country, CountryAnswer, Game } from '../../utils/types';
 
 type Props = {
-	giveScore: () => void;
-	checkAnswer: (answer: string | number) => boolean;
+	giveScore: (earnedScore: number) => void;
+	checkAnswer: (answer: string | number) => number;
 	alterGame: (newGame: Partial<Game>) => void;
 	guessColor: string[];
 	setGuessColor: React.Dispatch<React.SetStateAction<string[]>>;
@@ -44,9 +44,10 @@ const ButtonAnswer: FC<Props> = ({
 				if (!isAnswered) {
 					alterGame({ isQuestionAnswered: true });
 					const color = guessColor;
-					const isRight = checkAnswer((e.target as HTMLInputElement).id);
+					const earnedScore = checkAnswer((e.target as HTMLInputElement).id);
+					const isRight = !!earnedScore;
 					if (isRight) {
-						giveScore();
+						giveScore(earnedScore);
 						color[i] = 'green';
 						setGuessColor(color);
 					} else {

@@ -53,5 +53,9 @@ export default {
 	congratulations: 'Gratulujeme!',
 	username: 'Meno hráča',
 	date: 'Dátum',
-	score: 'Skóre'
+	score: 'Skóre',
+
+	you_earned: 'Získal si',
+	out_of: 'z',
+	points: 'bodov'
 };

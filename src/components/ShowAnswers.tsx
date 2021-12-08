@@ -24,27 +24,40 @@ const ShowAnswers: FC<Props> = ({
 	const round = useRound();
 	const question = useQuestion();
 
-	const giveScore = useCallback(() => {
-		alterGame({
-			score: game.score + round.currentQuestion
-		});
-	}, [game]);
+	const giveScore = useCallback(
+		(earnedScore: number) => {
+			alterGame({
+				score: game.score + earnedScore
+			});
+		},
+		[game]
+	);
 
 	const checkAnswer = useCallback(
-		(answer: string | number): boolean => {
+		(answer: string | number): number => {
 			if (typeof answer === 'number') {
 				if (
-					answer <= round.options[3].upper &&
-					answer >= round.options[3].lower
+					answer <= round.options[3].upper.high &&
+					answer >= round.options[3].lower.high
 				) {
-					return true;
+					return 3;
+				} else if (
+					answer <= round.options[3].upper.medium &&
+					answer >= round.options[3].lower.medium
+				) {
+					return 2;
+				} else if (
+					answer <= round.options[3].upper.low &&
+					answer >= round.options[3].lower.low
+				) {
+					return 1;
 				}
-				return false;
+				return 0;
 			}
 			if (answer === round.country.key) {
-				return true;
+				return round.currentQuestion;
 			}
-			return false;
+			return 0;
 		},
 		[round]
 	);

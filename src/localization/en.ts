@@ -54,5 +54,9 @@ export default {
 	congratulations: 'Congratulations',
 	username: 'Username',
 	date: 'Date',
-	score: 'Score'
+	score: 'Score',
+
+	you_earned: 'You earned',
+	out_of: 'out of',
+	points: 'points'
 };

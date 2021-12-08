@@ -6,8 +6,8 @@ import { useLanguage, useTranslation } from '../../hooks/useTranslation';
 import { Game } from '../../utils/types';
 
 type Props = {
-	giveScore: () => void;
-	checkAnswer: (answer: string | number) => boolean;
+	giveScore: (earnedScore: number) => void;
+	checkAnswer: (answer: string | number) => number;
 	alterGame: (newGame: Partial<Game>) => void;
 	guessColor: string[];
 	setGuessColor: React.Dispatch<React.SetStateAction<string[]>>;
@@ -52,8 +52,9 @@ const PopulationAnswer: FC<Props> = ({
 					onClick={() => {
 						if (populationGuess > 0) {
 							const color = guessColor;
-							if (checkAnswer(populationGuess)) {
-								giveScore();
+							const earnedScore = checkAnswer(populationGuess);
+							if (earnedScore) {
+								giveScore(earnedScore);
 								color[0] = 'green';
 								setGuessColor(color);
 							} else {
@@ -79,7 +80,9 @@ const PopulationAnswer: FC<Props> = ({
 				>
 					{t('thePopulationOf')} {round.country.name[l]} {t('is')}{' '}
 					{round.country.population.toLocaleString(l)}. {t('yourGuessWas')}{' '}
-					{populationGuess.toLocaleString(l)}.
+					{populationGuess.toLocaleString(l)}. {t('you_earned')}{' '}
+					{checkAnswer(populationGuess)} {t('out_of')} {round.currentQuestion}{' '}
+					{t('points')}.
 				</Typography>
 			</Grid>
 		</>
