@@ -92,7 +92,7 @@ const Scoreboard = () => {
 	};
 
 	return (
-		<Container sx={{ flexGrow: 1, justifyContent: 'flex-start' }}>
+		<Container sx={{ justifyContent: 'flex-start' }}>
 			<Grid container spacing={0} maxWidth="md">
 				<ScoreboardHeader requestSort={requestSort} />
 				{currentData.map((r, i) => (
