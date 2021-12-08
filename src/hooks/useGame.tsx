@@ -41,12 +41,16 @@ export const GameProvider: FC = ({ children }) => {
 		score: 0,
 		currentRound: 1,
 		rounds: generateRounds(),
-		isQuestionAnswered: false
+		current: {
+			isQuestionAnswered: false,
+			isQuestionCorrect: false,
+			answersColors: ['inherit', 'inherit', 'inherit', 'inherit']
+		}
 	});
 	const user = useLoggedInUser();
 
 	useEffect(() => {
-		if (game.finished) {
+		if (game.finished && game.started) {
 			addDoc(gameSessionsCollection, {
 				by: user?.email ?? 'Anonymous',
 				date: Timestamp.now(),
@@ -61,7 +65,11 @@ export const GameProvider: FC = ({ children }) => {
 				finished: false,
 				rounds: generateRounds(),
 				score: 0,
-				isQuestionAnswered: false,
+				current: {
+					isQuestionAnswered: false,
+					isQuestionCorrect: false,
+					answersColors: ['inherit', 'inherit', 'inherit', 'inherit']
+				},
 				started: true
 			});
 		}
@@ -96,9 +104,13 @@ export const getCurrentRound = (): number => {
 	return game.currentRound;
 };
 
-export const isQuestionAnswered = (): boolean => {
+export const useCurrent = (): {
+	isQuestionAnswered: boolean;
+	isQuestionCorrect: boolean;
+	answersColors: string[];
+} => {
 	const [game] = useContext(GameContext);
-	return game.isQuestionAnswered;
+	return game.current;
 };
 
 const generateRounds = (): Record<Rounds, Round> => {

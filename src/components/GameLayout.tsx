@@ -1,5 +1,5 @@
 import { Container } from '@mui/material';
-import { FC, useState } from 'react';
+import { FC } from 'react';
 
 import { useGame } from '../hooks/useGame';
 import { Game } from '../utils/types';
@@ -15,14 +15,6 @@ const GameLayout: FC = () => {
 
 	const alterGame = (newGame: Partial<Game>) =>
 		setGame(prevGame => ({ ...prevGame, ...newGame }));
-
-	const [isRight, setIsRight] = useState(false);
-	const [guessColor, setGuessColor] = useState<string[]>([
-		'inherit',
-		'inherit',
-		'inherit',
-		'inherit'
-	]);
 
 	return game.finished ? (
 		<EndScreen />
@@ -55,18 +47,9 @@ const GameLayout: FC = () => {
 			>
 				<ShowQuestion />
 			</Container>
-			<ShowAnswers
-				setIsRight={setIsRight}
-				alterGame={alterGame}
-				guessColor={guessColor}
-				setGuessColor={setGuessColor}
-			/>
-			{game.isQuestionAnswered ? (
-				<NextButton
-					isRight={isRight}
-					alterGame={alterGame}
-					setGuessColor={setGuessColor}
-				/>
+			<ShowAnswers alterGame={alterGame} />
+			{game.current.isQuestionAnswered ? (
+				<NextButton alterGame={alterGame} />
 			) : null}
 		</Container>
 	);

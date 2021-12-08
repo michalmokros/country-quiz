@@ -1,7 +1,7 @@
 import { Button, Grid, TextField, Typography } from '@mui/material';
 import { FC, useState } from 'react';
 
-import { isQuestionAnswered, useRound } from '../../hooks/useGame';
+import { useCurrent, useRound } from '../../hooks/useGame';
 import { useLanguage, useTranslation } from '../../hooks/useTranslation';
 import { Game } from '../../utils/types';
 
@@ -9,21 +9,17 @@ type Props = {
 	giveScore: (earnedScore: number) => void;
 	checkAnswer: (answer: string | number) => number;
 	alterGame: (newGame: Partial<Game>) => void;
-	guessColor: string[];
-	setGuessColor: React.Dispatch<React.SetStateAction<string[]>>;
 };
 
 const PopulationAnswer: FC<Props> = ({
 	giveScore,
 	checkAnswer,
-	alterGame,
-	guessColor,
-	setGuessColor
+	alterGame
 }: Props) => {
 	const [populationGuess, setPopulationGuess] = useState<number>(0);
 	const t = useTranslation();
 	const round = useRound();
-	const isAnswered = isQuestionAnswered();
+	const { isQuestionAnswered, answersColors } = useCurrent();
 	const [l] = useLanguage();
 
 	return (
@@ -37,7 +33,7 @@ const PopulationAnswer: FC<Props> = ({
 					variant="filled"
 					type="number"
 					onChange={e => setPopulationGuess(Number.parseInt(e.target.value))}
-					sx={{ display: isAnswered ? 'none' : 'inherit' }}
+					sx={{ display: isQuestionAnswered ? 'none' : 'inherit' }}
 				/>
 			</Grid>
 			<Grid item xs={2} alignItems="stretch" style={{ display: 'flex' }}>
@@ -45,23 +41,27 @@ const PopulationAnswer: FC<Props> = ({
 					fullWidth
 					sx={{
 						height: '100%',
-						bgcolor: guessColor[0],
-						display: isAnswered ? 'none' : 'inherit'
+						bgcolor: answersColors[0],
+						display: isQuestionAnswered ? 'none' : 'inherit'
 					}}
 					variant="outlined"
 					onClick={() => {
 						if (populationGuess > 0) {
-							const color = guessColor;
+							const color = answersColors;
 							const earnedScore = checkAnswer(populationGuess);
 							if (earnedScore) {
 								giveScore(earnedScore);
 								color[0] = 'green';
-								setGuessColor(color);
 							} else {
 								color[0] = 'red';
-								setGuessColor(color);
 							}
-							alterGame({ isQuestionAnswered: true });
+							alterGame({
+								current: {
+									isQuestionAnswered: true,
+									isQuestionCorrect: !!earnedScore,
+									answersColors: color
+								}
+							});
 						}
 					}}
 				>
@@ -73,9 +73,9 @@ const PopulationAnswer: FC<Props> = ({
 					variant="h6"
 					align="center"
 					sx={{
-						display: !isAnswered ? 'none' : 'inherit',
+						display: !isQuestionAnswered ? 'none' : 'inherit',
 						border: 'solid',
-						borderColor: guessColor[0]
+						borderColor: answersColors[0]
 					}}
 				>
 					{t('thePopulationOf')} {round.country.name[l]} {t('is')}{' '}

@@ -1,7 +1,7 @@
 import { Button, Grid } from '@mui/material';
 import { FC, useCallback } from 'react';
 
-import { useGame, useRound } from '../hooks/useGame';
+import { useGame, useRound, useCurrent } from '../hooks/useGame';
 import { useTranslation } from '../hooks/useTranslation';
 import {
 	Game,
@@ -12,19 +12,14 @@ import {
 } from '../utils/types';
 
 type Props = {
-	isRight: boolean;
 	alterGame: (newGame: Partial<Game>) => void;
-	setGuessColor: React.Dispatch<React.SetStateAction<string[]>>;
 };
 
-const NextButton: FC<Props> = ({
-	isRight,
-	alterGame,
-	setGuessColor
-}: Props) => {
+const NextButton: FC<Props> = ({ alterGame }: Props) => {
 	const [game] = useGame();
 	const round = useRound();
 	const t = useTranslation();
+	const { isQuestionCorrect } = useCurrent();
 
 	const setNextQuestionOrRound = useCallback(
 		(isRight: boolean) => {
@@ -55,12 +50,17 @@ const NextButton: FC<Props> = ({
 				fullWidth
 				sx={{ border: 'solid', height: '100%' }}
 				onClick={() => {
-					setNextQuestionOrRound(isRight);
-					alterGame({ isQuestionAnswered: false });
-					setGuessColor(['inherit', 'inherit', 'inherit', 'inherit']);
+					setNextQuestionOrRound(isQuestionCorrect);
+					alterGame({
+						current: {
+							isQuestionAnswered: false,
+							isQuestionCorrect: false,
+							answersColors: ['inherit', 'inherit', 'inherit', 'inherit']
+						}
+					});
 				}}
 			>
-				{isRight && round.currentQuestion < NUMBER_OF_QUESTIONS
+				{isQuestionCorrect && round.currentQuestion < NUMBER_OF_QUESTIONS
 					? t('next_question')
 					: game.currentRound === NUMBER_OF_ROUNDS
 					? t('evaluate')
@@ -69,4 +69,5 @@ const NextButton: FC<Props> = ({
 		</Grid>
 	);
 };
+
 export default NextButton;

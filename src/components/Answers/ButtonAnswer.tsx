@@ -1,7 +1,7 @@
 import { Button } from '@mui/material';
-import { FC } from 'react';
+import { FC, useEffect } from 'react';
 
-import { isQuestionAnswered, useQuestion, useRound } from '../../hooks/useGame';
+import { useCurrent, useQuestion, useRound } from '../../hooks/useGame';
 import { useLanguage } from '../../hooks/useTranslation';
 import { Country, CountryAnswer, Game } from '../../utils/types';
 
@@ -9,9 +9,6 @@ type Props = {
 	giveScore: (earnedScore: number) => void;
 	checkAnswer: (answer: string | number) => number;
 	alterGame: (newGame: Partial<Game>) => void;
-	guessColor: string[];
-	setGuessColor: React.Dispatch<React.SetStateAction<string[]>>;
-	setIsRight: (newIsRight: boolean) => void;
 	answer: Country;
 	i: number;
 };
@@ -20,16 +17,13 @@ const ButtonAnswer: FC<Props> = ({
 	giveScore,
 	checkAnswer,
 	alterGame,
-	guessColor,
-	setGuessColor,
-	setIsRight,
 	answer,
 	i
 }: Props) => {
 	const round = useRound();
 	const question = useQuestion();
 	const [l] = useLanguage();
-	const isAnswered = isQuestionAnswered();
+	const { isQuestionAnswered, answersColors } = useCurrent();
 
 	return (
 		<Button
@@ -37,25 +31,28 @@ const ButtonAnswer: FC<Props> = ({
 			fullWidth
 			sx={{
 				border: 'solid',
-				height: '100%'
+				height: '100%',
+				backgroundColor: answersColors[i]
 			}}
-			style={{ backgroundColor: guessColor[i] }}
 			onClick={e => {
-				if (!isAnswered) {
-					alterGame({ isQuestionAnswered: true });
-					const color = guessColor;
+				if (!isQuestionAnswered) {
+					const color = answersColors;
 					const earnedScore = checkAnswer((e.target as HTMLInputElement).id);
 					const isRight = !!earnedScore;
 					if (isRight) {
 						giveScore(earnedScore);
 						color[i] = 'green';
-						setGuessColor(color);
 					} else {
 						color[i] = 'red';
 						color[(question as CountryAnswer).index] = 'green';
-						setGuessColor(color);
 					}
-					setIsRight(isRight);
+					alterGame({
+						current: {
+							isQuestionAnswered: true,
+							isQuestionCorrect: isRight,
+							answersColors: color
+						}
+					});
 				}
 			}}
 		>

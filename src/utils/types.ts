@@ -53,5 +53,9 @@ export type Game = {
 	score: number;
 	currentRound: Rounds;
 	rounds: Record<Rounds, Round>;
-	isQuestionAnswered: boolean;
+	current: {
+		isQuestionAnswered: boolean;
+		isQuestionCorrect: boolean;
+		answersColors: string[];
+	};
 };

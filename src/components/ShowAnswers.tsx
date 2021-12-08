@@ -4,22 +4,14 @@ import { FC, useCallback } from 'react';
 import { useGame, useQuestion, useRound } from '../hooks/useGame';
 import { CountryAnswer, Game } from '../utils/types';
 
-import ButtonAnswer from './Answers/ButtonAnswer';
-import PopulationAnswer from './Answers/PopulationAnswer';
+import ButtonAnswer from './answers/ButtonAnswer';
+import PopulationAnswer from './answers/PopulationAnswer';
 
 type Props = {
-	setIsRight: (newIsRight: boolean) => void;
 	alterGame: (newGame: Partial<Game>) => void;
-	guessColor: string[];
-	setGuessColor: React.Dispatch<React.SetStateAction<string[]>>;
 };
 
-const ShowAnswers: FC<Props> = ({
-	setIsRight,
-	alterGame,
-	guessColor,
-	setGuessColor
-}: Props) => {
+const ShowAnswers: FC<Props> = ({ alterGame }: Props) => {
 	const [game] = useGame();
 	const round = useRound();
 	const question = useQuestion();
@@ -79,8 +71,6 @@ const ShowAnswers: FC<Props> = ({
 						giveScore={giveScore}
 						checkAnswer={checkAnswer}
 						alterGame={alterGame}
-						guessColor={guessColor}
-						setGuessColor={setGuessColor}
 					/>
 				) : (
 					(question as CountryAnswer).countries.map((answer, i) => (
@@ -89,9 +79,6 @@ const ShowAnswers: FC<Props> = ({
 								giveScore={giveScore}
 								checkAnswer={checkAnswer}
 								alterGame={alterGame}
-								guessColor={guessColor}
-								setGuessColor={setGuessColor}
-								setIsRight={setIsRight}
 								answer={answer}
 								i={i}
 							/>
