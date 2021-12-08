@@ -5,7 +5,11 @@ import { getScore, getCurrentRound } from '../hooks/useGame';
 import { useTranslation } from '../hooks/useTranslation';
 import { MAX_SCORE, NUMBER_OF_ROUNDS } from '../utils/types';
 
-const ShowScore: FC = () => {
+type Props = {
+	username?: string;
+};
+
+const ShowScore: FC<Props> = ({ username }) => {
 	const score = getScore();
 	const currentRound = getCurrentRound();
 	const t = useTranslation();
@@ -24,7 +28,8 @@ const ShowScore: FC = () => {
 				{t('round_text')} {currentRound}/{NUMBER_OF_ROUNDS}{' '}
 			</Typography>
 			<Typography variant="h3" sx={{ p: 2, flexGrow: '1', textAlign: 'right' }}>
-				{t('score_text')}
+				{username ? `${username}'s` : t('score_text_before')}
+				{t('score_text_after')}
 				{score}/{MAX_SCORE}
 			</Typography>
 		</Container>

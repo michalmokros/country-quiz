@@ -10,7 +10,11 @@ import { MAX_SCORE } from '../utils/types';
 
 import RestartButton from './RestartButton';
 
-const EndScreen: FC = () => {
+type Props = {
+	username?: string;
+};
+
+const EndScreen: FC<Props> = ({ username }) => {
 	const score = getScore();
 	const user = useLoggedInUser();
 	const t = useTranslation();
@@ -81,7 +85,8 @@ const EndScreen: FC = () => {
 			</Typography>
 			<Typography variant="h2">
 				{' '}
-				{t('score_text')} {score}/{MAX_SCORE}
+				{username ? `${username}'s` : t('score_text_before')}
+				{t('score_text_after')} {score}/{MAX_SCORE}
 			</Typography>
 
 			<RestartButton />

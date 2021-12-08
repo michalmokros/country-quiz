@@ -16,7 +16,7 @@ const Paths = () => {
 			<Route path="/" element={<Home username={username} />} />
 			<Route path="/scoreboard" element={<Scoreboard />} />
 			<Route path="/login" element={<Login />} />
-			<Route path="/play" element={<Play />} />
+			<Route path="/play" element={<Play username={username} />} />
 			<Route path="*" element={<NotFound />} />
 		</Routes>
 	);

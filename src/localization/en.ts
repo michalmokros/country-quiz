@@ -38,7 +38,8 @@ export default {
 	capital_city_question: 'What is the capital city of ',
 	population_question: 'What is the population of ',
 
-	score_text: 'Your score is ',
+	score_text_before: 'Your',
+	score_text_after: ' score is ',
 	round_text: 'Round',
 	take_guess: 'Your guess:',
 	submit: 'Submit',
