@@ -59,7 +59,7 @@ export const GameProvider: FC = ({ children }) => {
 					score: game.score
 				}
 			});
-		} else if (!game.finished && !game.started) {
+		} else if (game.finished && !game.started) {
 			setGame({
 				currentRound: 1,
 				finished: false,

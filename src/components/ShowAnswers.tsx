@@ -60,9 +60,8 @@ const ShowAnswers: FC<Props> = ({ alterGame }: Props) => {
 			component="main"
 			sx={{
 				display: 'flex',
-				height: '20vh',
-				pb: 10,
-				gap: 1
+				gap: 1,
+				pt: 3
 			}}
 		>
 			<Grid container spacing={2}>

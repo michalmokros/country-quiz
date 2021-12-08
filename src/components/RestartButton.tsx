@@ -12,7 +12,7 @@ const RestartButton = () => {
 			onClick={() => {
 				setGame(prevGame => ({
 					...prevGame,
-					...{ finished: false, started: false }
+					...{ finished: true, started: false }
 				}));
 			}}
 		>

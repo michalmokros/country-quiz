@@ -21,7 +21,7 @@ const Scoreboard = () => {
 		key: 'score',
 		descending: false
 	});
-	const PAGE_LENGTH = 10;
+	const PAGE_LENGTH = 15;
 	const [currentData, setCurrentData] = useState<GameSession[]>([]);
 
 	useEffect(

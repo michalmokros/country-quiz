@@ -1,4 +1,4 @@
-import { Button, Grid } from '@mui/material';
+import { Button, Container } from '@mui/material';
 import { FC, useCallback } from 'react';
 
 import { useGame, useRound, useCurrent } from '../hooks/useGame';
@@ -45,10 +45,9 @@ const NextButton: FC<Props> = ({ alterGame }: Props) => {
 	);
 
 	return (
-		<Grid item xs={12}>
+		<Container sx={{ display: 'flex', justifyContent: 'center', pt: 3 }}>
 			<Button
-				fullWidth
-				sx={{ border: 'solid', height: '100%' }}
+				variant="contained"
 				onClick={() => {
 					setNextQuestionOrRound(isQuestionCorrect);
 					alterGame({
@@ -66,7 +65,7 @@ const NextButton: FC<Props> = ({ alterGame }: Props) => {
 					? t('evaluate')
 					: t('next_round')}
 			</Button>
-		</Grid>
+		</Container>
 	);
 };
 

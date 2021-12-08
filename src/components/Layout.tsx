@@ -79,7 +79,7 @@ const Layout: FC = ({ children }) => {
 					display: 'flex',
 					flexDirection: 'column',
 					justifyContent: 'center',
-					alignItems: 'flex-start',
+					alignItems: 'center',
 					height: '100vh',
 					pt: 8,
 					gap: 2

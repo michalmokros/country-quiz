@@ -1,7 +1,7 @@
 import { Container } from '@mui/material';
 import { FC } from 'react';
 
-import { useGame } from '../hooks/useGame';
+import { useGame, useRound } from '../hooks/useGame';
 import { Game } from '../utils/types';
 
 import EndScreen from './EndScreen';
@@ -16,6 +16,7 @@ type Props = {
 
 const GameLayout: FC<Props> = ({ username }) => {
 	const [game, setGame] = useGame();
+	const round = useRound();
 
 	const alterGame = (newGame: Partial<Game>) =>
 		setGame(prevGame => ({ ...prevGame, ...newGame }));
@@ -33,7 +34,8 @@ const GameLayout: FC<Props> = ({ username }) => {
 					flexDirection: 'column',
 					justifyContent: 'center',
 					gap: 1,
-					pt: 1
+					py: 3,
+					backgroundColor: '#272727'
 				}}
 			>
 				<ShowScore username={username} />
@@ -42,12 +44,12 @@ const GameLayout: FC<Props> = ({ username }) => {
 					component="main"
 					sx={{
 						display: 'flex',
-						gap: 1,
-						border: 'solid',
 						flexDirection: 'column',
+						gap: 1,
 						alignItems: 'center',
 						height: '80%',
-						width: '80%'
+						width: '80%',
+						backgroundColor: round.currentQuestion !== 1 ? '#323232' : 'inherit'
 					}}
 				>
 					<ShowQuestion />

@@ -1,5 +1,5 @@
 import { Button } from '@mui/material';
-import { FC, useEffect } from 'react';
+import { FC } from 'react';
 
 import { useCurrent, useQuestion, useRound } from '../../hooks/useGame';
 import { useLanguage } from '../../hooks/useTranslation';
