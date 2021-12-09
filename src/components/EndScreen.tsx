@@ -1,14 +1,13 @@
-import { Container, Typography } from '@mui/material';
+import { Button, Container, Typography } from '@mui/material';
 import { CreateTypes } from 'canvas-confetti';
 import { FC, useCallback, useRef } from 'react';
 import ReactCanvasConfetti from 'react-canvas-confetti';
+import RestartAltIcon from '@mui/icons-material/RestartAlt';
 
-import { getScore } from '../hooks/useGame';
+import { getScore, useGame } from '../hooks/useGame';
 import useLoggedInUser from '../hooks/useLoggedInUser';
 import { useTranslation } from '../hooks/useTranslation';
 import { MAX_SCORE } from '../utils/types';
-
-import RestartButton from './RestartButton';
 
 type Props = {
 	username?: string;
@@ -18,6 +17,7 @@ const EndScreen: FC<Props> = ({ username }) => {
 	const score = getScore();
 	const user = useLoggedInUser();
 	const t = useTranslation();
+	const [, setGame] = useGame();
 
 	const refAnimationInstance = useRef(null);
 
@@ -89,7 +89,23 @@ const EndScreen: FC<Props> = ({ username }) => {
 				{t('score_text_after')} {score}/{MAX_SCORE}
 			</Typography>
 
-			<RestartButton />
+			<Container sx={{ display: 'flex', justifyContent: 'center' }}>
+				<Button
+					onClick={() => {
+						setGame(prevGame => ({
+							...prevGame,
+							...{ finished: true, started: false }
+						}));
+					}}
+					variant="contained"
+					size="large"
+					disableElevation
+					startIcon={<RestartAltIcon />}
+				>
+					{' '}
+					{t('restart_game')}{' '}
+				</Button>
+			</Container>
 
 			<ReactCanvasConfetti
 				refConfetti={getInstance}
