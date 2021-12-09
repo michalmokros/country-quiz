@@ -18,7 +18,7 @@ const theme = createTheme({
 			main: '#d8000d'
 		},
 		success: {
-			main: '#008000'
+			main: '#158815'
 		},
 		mode: 'dark'
 	}

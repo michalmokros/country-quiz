@@ -33,7 +33,10 @@ const ButtonAnswer: FC<Props> = ({
 			sx={{
 				border: 'solid',
 				height: '100%',
-				backgroundColor: answersColors[i]
+				backgroundColor: answersColors[i],
+				fontWeight: 'bold',
+				WebkitTextStroke: '0.2px black',
+				textShadow: '0px 0px 3px black'
 			}}
 			onClick={e => {
 				if (!isQuestionAnswered) {

@@ -115,11 +115,12 @@ export const useCurrent = (): {
 
 const generateRounds = (): Record<Rounds, Round> => {
 	const rounds: Partial<Record<Rounds, Round>> = {};
+	const roundCountries = _.sampleSize(countries, 10);
 
 	for (const round of RoundsArray) {
-		const roundCountry = _.sample(countries) as Country;
 		const options: Partial<QuestionOptions> = {};
 		let countryIndex = -1;
+		const roundCountry = roundCountries[round - 1];
 
 		for (const question of QuestionsArray) {
 			if (question === 3) {
