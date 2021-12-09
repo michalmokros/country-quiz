@@ -29,6 +29,7 @@ const Home = ({ username }: Props) => {
 
 			<Typography variant="h5">{t('pretext')}</Typography>
 			<Typography variant="h4">{t('rules_title')}</Typography>
+			<Typography variant="body1">{t('rules_about')}</Typography>
 			<Typography variant="h5">{t('rules_first_title')}</Typography>
 			<Typography variant="body1">{t('rules_first')}</Typography>
 			<Typography variant="h5">{t('rules_second_title')}</Typography>
