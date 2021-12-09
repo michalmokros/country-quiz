@@ -29,7 +29,7 @@ export default {
 		'Druhá úloha sa skladá z uhádnutia hlavného mesta krajiny ktorej vlajku si práve uhádol. Opäť máš na odpoveď štyri možnosti z ktorých je taktiež samozrejme len jedna správna. Správnym zodpovedaním tejto otázky získavaš dva body a postupuješ na ďaľšiu, poslednú, otázku v danom kole.',
 	rules_third_title: 'Tretia otázka:',
 	rules_third:
-		'Poslednou úlohou v tomto kole je zodpovedanie otázky na počet obyvateľov danej krajiny. Tvojou odpoveďou je v tomto prípade číslo. Aby bola otázka správne zodpovedaná musíš trafiť počet obyvateľov danej krajiny s chybou najviac 10%. Pokiaľ odpovieš správne na túto otázku získavaš tri body a úspešne si dokončil toto kolo.',
+		'Poslednou úlohou v tomto kole je zodpovedanie otázky na počet obyvateľov danej krajiny. Tvojou odpoveďou je v tomto prípade číslo. Aby bola otázka správne zodpovedaná musíš trafiť počet obyvateľov danej krajiny s chybou najviac 10/20/30%. Pokiaľ odpovieš správne na túto otázku získavaš 1/2/3 body a úspešne si dokončil toto kolo.',
 	rules_fourth:
 		'Pokiaľ nesprávne odpovieš na hociktorú otázku presúvaš sa automaticky do ďalšieho kola, a strácaš možnosť získať body za dané kolo. Po skončení desiateho kola sa tvoje získané body sčítajú do výsledného skóre a zobrazí sa tabuľka výsledkov v porovnaní s rebríčkom najlepších hráčov.',
 	rules_final: 'Veľa štastia v hre a zabav sa!',

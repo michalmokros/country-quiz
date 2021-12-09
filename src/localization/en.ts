@@ -30,7 +30,7 @@ export default {
 		'Second question consists of guessing the capital city of country from last question. Again you have four possible answers with one correct answer. By correctly answering this question you receive two points and move onto the next and final question in this round.',
 	rules_third_title: 'Third question:',
 	rules_third:
-		'Your last question is to guess the population of the country fron this round. In this question you answer by writing a number. For this question to be answered correctly you have 10% margin of error of the actual population of the country. If you answer this question correctly you receive three points and you successfully completed this round.',
+		'Your last question is to guess the population of the country fron this round. In this question you answer by writing a number. For this question to be answered correctly you have 10/20/30% margin of error of the actual population of the country. If you answer this question correctly you receive 1/2/3 points and you successfully completed this round.',
 	rules_fourth:
 		'If you answer any question wrong you move onto the next round and lose any possible chance to gain more points from that round. After the end of 10th round, your points are summed up into the final score and the table of best players is displayed with the scoreboard.',
 	rules_final: 'Good luck in the game and have fun!',
