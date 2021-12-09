@@ -3,6 +3,7 @@ import { FC } from 'react';
 
 import { useCurrent, useQuestion, useRound } from '../../hooks/useGame';
 import { useLanguage } from '../../hooks/useTranslation';
+import theme from '../../utils/theme';
 import { Country, CountryAnswer, Game } from '../../utils/types';
 
 type Props = {
@@ -41,10 +42,11 @@ const ButtonAnswer: FC<Props> = ({
 					const isRight = !!earnedScore;
 					if (isRight) {
 						giveScore(earnedScore);
-						color[i] = 'green';
+						color[i] = theme.palette.success.main;
 					} else {
-						color[i] = 'red';
-						color[(question as CountryAnswer).index] = 'green';
+						color[i] = theme.palette.error.main;
+						color[(question as CountryAnswer).index] =
+							theme.palette.success.main;
 					}
 					alterGame({
 						current: {

@@ -3,6 +3,7 @@ import { FC, useState } from 'react';
 
 import { useCurrent, useRound } from '../../hooks/useGame';
 import { useLanguage, useTranslation } from '../../hooks/useTranslation';
+import theme from '../../utils/theme';
 import { Game } from '../../utils/types';
 
 type Props = {
@@ -51,9 +52,9 @@ const PopulationAnswer: FC<Props> = ({
 							const earnedScore = checkAnswer(populationGuess);
 							if (earnedScore) {
 								giveScore(earnedScore);
-								color[0] = 'green';
+								color[0] = theme.palette.success.main;
 							} else {
-								color[0] = 'red';
+								color[0] = theme.palette.error.main;
 							}
 							alterGame({
 								current: {
