@@ -11,7 +11,7 @@ type Props = {
 
 const Home = ({ username }: Props) => {
 	const t = useTranslation();
-	usePageTitle(t('country_quiz'));
+	usePageTitle(t('home'));
 
 	return (
 		<>

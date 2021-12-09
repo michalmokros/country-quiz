@@ -4,6 +4,10 @@ export default {
 
 	country_quiz: 'Kvíz Krajín',
 	login: 'Prihlásenie',
+	scoreboard: 'Tabuľka víťazov',
+	game: 'Hra',
+	home: 'Domov',
+
 	required: 'Povinné',
 	unknown_error: 'Neznáma chyba',
 	email: 'E-mail',
@@ -14,7 +18,6 @@ export default {
 	not_found: 'Stránka Nenájdená',
 	welcome: 'Vitaj v hre krajín',
 	start_game: 'Začať hru!',
-	scoreboard: 'Tabuľka víťazov',
 	play: 'Hrať!',
 
 	pretext: 'Kvíz Krajín je hra kde môžeš odskúšať svoje geografické znalosti.',

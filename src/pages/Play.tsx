@@ -10,7 +10,7 @@ type Props = {
 
 const Play: FC<Props> = ({ username }) => {
 	const t = useTranslation();
-	usePageTitle(t('country_quiz'));
+	usePageTitle(t('game'));
 	return <GameLayout username={username} />;
 };
 

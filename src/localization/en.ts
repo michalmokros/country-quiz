@@ -4,6 +4,10 @@ export default {
 
 	country_quiz: 'Country Quiz',
 	login: 'Login',
+	game: 'Game',
+	scoreboard: 'Scoreboard',
+	home: 'Home',
+
 	required: 'Required',
 	unknown_error: 'Unknown error',
 	email: 'E-mail',
@@ -14,7 +18,6 @@ export default {
 	not_found: 'Page Not Found',
 	welcome: 'Welcome to the game of the countries',
 	start_game: 'Start the game!',
-	scoreboard: 'Scoreboard',
 	play: 'Play!',
 
 	pretext:
