@@ -23,7 +23,8 @@ import {
 	POPULATION_RANGE_HIGH,
 	POPULATION_RANGE_MEDIUM,
 	POPULATION_RANGE_LOW,
-	BoundariesNames
+	BoundariesNames,
+	NUMBER_OF_ROUNDS
 } from '../utils/types';
 import { gameSessionsCollection } from '../utils/firebase';
 
@@ -115,7 +116,7 @@ export const useCurrent = (): {
 
 const generateRounds = (): Record<Rounds, Round> => {
 	const rounds: Partial<Record<Rounds, Round>> = {};
-	const roundCountries = _.sampleSize(countries, 10);
+	const roundCountries = _.sampleSize(countries, NUMBER_OF_ROUNDS);
 
 	for (const round of RoundsArray) {
 		const options: Partial<QuestionOptions> = {};
